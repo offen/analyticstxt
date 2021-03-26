@@ -59,10 +59,10 @@ This document defines a text file format that can be used by implementors to sig
 
 By convention, this file is called analytics.txt. Its location and scope are described in {{location}}.
 
-This text file contains multiple fields with different values.  A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Contact:") and follows the syntax
-defined for "field-name" in section 3.6.8 of {{?RFC5322}}.  Field names are case-insensitive (as per section 2.3 of {{?RFC5234}}).  The "value" comes after the field name and follows the syntax defined for "unstructured" in section 3.2.5 of {{?RFC5322}}.  The file MAY also contain blank lines.
+This text file contains multiple fields with different values. A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Contact:") and follows the syntax
+defined for "field-name" in section 3.6.8 of {{?RFC5322}}. Field names are case-insensitive (as per section 2.3 of {{?RFC5234}}). The "value" comes after the field name and follows the syntax defined for "unstructured" in section 3.2.5 of {{?RFC5322}}. The file MAY also contain blank lines.
 
-A field MUST always consist of a name and a value (for example: "Contact: mailto:privacy@example.com).  An analytics.txt file can have an unlimited number of fields.  Each field MUST appear on its own line.  Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," (%x2c). Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
+A field MUST always consist of a name and a value (for example: "Contact: mailto:privacy@example.com).  An analytics.txt file can have an unlimited number of fields.  Each field MUST appear on its own line. Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," (%x2c). Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
 
 Implementors should be aware that some of the fields may contain URIs using percent-encoding (as per section 2.1 of {{?RFC3986}}).
 
@@ -70,7 +70,7 @@ Implementors SHOULD aim for creating an analytics.txt file that is easy to under
 
 ## Comments
 
-Any line beginning with the "#" (%x23) symbol MUST be interpreted as a comment.  The content of the comment may contain any ASCII or Unicode characters in the %x21-7E and %x80-FFFFF ranges plus the tab (%x09) and space (%x20) characters.
+Any line beginning with the "#" (%x23) symbol MUST be interpreted as a comment. The content of the comment may contain any ASCII or Unicode characters in the %x21-7E and %x80-FFFFF ranges plus the tab (%x09) and space (%x20) characters.
 
 Example:
 
@@ -86,7 +86,7 @@ Every line MUST end either with a carriage return and line feed characters (CRLF
 
 ## Extensibility
 
-Like many other formats and protocols, this format may need to be extended over time to fit the ever-changing landscape of the Internet. Special attention is required for defining the allowed values in enumerations to ensure they are a. extensible and b. do not become obsolete too quickly.
+Like many other formats and protocols, this format may need to be extended over time to fit the ever-changing landscape of the Internet. Special attention is required for defining the allowed values in enumerations to ensure they are a. extendable and b. do not become obsolete too quickly.
 
 ## Field Definitions
 
@@ -306,13 +306,13 @@ In case multiple of these signals are being used, the precedence taken is:
 
 ## Scope of a file
 
-An analytics.txt file MUST only apply to the domain or IP address in the URI used to retrieve it, not to any of its subdomains or parent domains.  An analytics.txt file MAY also apply to products and services provided by the organization publishing the file.
+An analytics.txt file MUST only apply to the domain or IP address in the URI used to retrieve it, not to any of its subdomains or parent domains. An analytics.txt file MAY also apply to products and services provided by the organization publishing the file.
 
 # Security Considerations
 
 ## Incorrect or stale information
 
-If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions in the realm of privacy, thus exposing users to possibly unwanted data collection and handling.  Not having an "analytics.txt" file may be preferable to having stale information in this file. Implementors must use the "Contact" field (see {{contact-field}}) to allow inquiries about the correctness of the given information.
+If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions in the realm of privacy, thus exposing users to possibly unwanted data collection and handling. Not having an "analytics.txt" file may be preferable to having stale information in this file. Implementors must use the "Contact" field (see {{contact-field}}) to allow inquiries about the correctness of the given information.
 
 ## Spam
 
@@ -320,7 +320,7 @@ Implementors should be aware that disclosing mandatory contact information in su
 
 # Multi-user Environments
 
-In multi-user / multi-tenant environments, it may possible for a user to take over the location of the "/.well-known/security.txt" file.  Organizations should ensure the ".well-known" location is properly protected. Implementors can use other locations as per {{location}}.
+In multi-user / multi-tenant environments, it may possible for a user to take over the location of the "/.well-known/security.txt" file. Organizations should ensure the ".well-known" location is properly protected. Implementors can use other locations as per {{location}}.
 
 # IANA Considerations
 
