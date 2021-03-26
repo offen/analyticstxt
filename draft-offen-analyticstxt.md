@@ -44,7 +44,7 @@ This document defines a way to specify the privacy related characteristics of an
 
 The file "analytics.txt" is not intended to replace the requirement for complying to certain regulations, but supposed to give insights beyond the scope of these regulations.
 
-## Scope of the term analytics
+## Scope of the term "analytics" in this document
 
 TODO define analytics
 
@@ -63,10 +63,10 @@ This document defines a text file format that can be used by implementors to sig
 
 By convention, this file is called analytics.txt. Its location and scope are described in {{location}}.
 
-This text file contains multiple fields with different values. A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Contact:") and follows the syntax
+This text file contains multiple fields with different values. A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Autho:") and follows the syntax
 defined for "field-name" in section 3.6.8 of {{?RFC5322}}. Field names are case-insensitive (as per section 2.3 of {{?RFC5234}}). The "value" comes after the field name and follows the syntax defined for "unstructured" in section 3.2.5 of {{?RFC5322}}. The file MAY also contain blank lines.
 
-A field MUST always consist of a name and a value (for example: "Contact: mailto:privacy@example.com).  An analytics.txt file can have an unlimited number of fields.  Each field MUST appear on its own line. Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," (%x2c). Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
+A field MUST always consist of a name and a value (for example: "Author: Jane Doe <jane.doe@example.com>").  An analytics.txt file can have an unlimited number of fields.  Each field MUST appear on its own line. Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," (%x2c). Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
 
 Implementors should be aware that some of the fields may contain URIs using percent-encoding (as per section 2.1 of {{?RFC3986}}).
 
@@ -98,14 +98,14 @@ Field names are case-insensitive, yet implementors SHOULD use the capitalized st
 
 Field values are case-insensitive. In case a field contains an enumeration, implementors MUST refer to the allowed values given by the specification.
 
-### Contact {#contact-field}
+### Author {#author-field}
 
-This REQUIRED field holds an email address that can be used for contacting the provider of the analytics.txt file. It shall be used for inquiries about the correctness and additions to the data provided in the file.
+This REQUIRED field holds an OPTIONAL author name and a REQUIRED email address providing information about who is responsible for maintaining the contents of the file. The field MUST contain a valid email address which shall be used for inquiries about the correctness and additions to the data provided in the file.
 
 Example:
 
-```jsx
-Contact: mailto:hioffen@posteo.de
+```
+Contact: Jane Doe <jane.doe@example.com>
 ```
 
 ### Collects
@@ -341,7 +341,7 @@ Vendors: offen, hotjar
 
 ```
 # analytics.txt file for https://www.analyticstxt.org
-Contact: mailto:hioffen@posteo.de
+Author: Frederik Ring <hioffen@posteo.de>
 
 Collects: url, referrer, device-type
 Stores: first-party-cookies, local-storage
@@ -393,15 +393,15 @@ An analytics.txt file MUST only apply to the domain or IP address in the URI use
 
 ## Incorrect or stale information
 
-If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions in the realm of privacy, thus exposing users to possibly unwanted data collection and handling. Not having an "analytics.txt" file may be preferable to having stale information in this file. Implementors must use the "Contact" field (see {{contact-field}}) to allow inquiries about the correctness of the given information.
+If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions in the realm of privacy, thus exposing users to possibly unwanted data collection and handling. Not having an "analytics.txt" file may be preferable to having stale information in this file. Implementors must use the "Author" field (see {{author-field}}) to allow inquiries about the correctness of the given information.
 
 ## Spam
 
-Implementors should be aware that disclosing mandatory contact information in such a file exposes them to possible Spam schemes or spurious requests.
+Implementors should be aware that disclosing mandatory author information as per {{author-field}} in such a file exposes them to possible Spam schemes or spurious requests.
 
-# Multi-user Environments
+## Multi-user Environments
 
-In multi-user / multi-tenant environments, it may possible for a user to take over the location of the "/.well-known/security.txt" file. Organizations should ensure the ".well-known" location is properly protected. Implementors can use other locations as per {{location}}.
+In multi-user / multi-tenant environments, it may possible for a single user to take over the location of the "/.well-known/security.txt" file. Organizations should ensure the ".well-known" location is properly protected. Implementors can use other locations as per {{location}}.
 
 # IANA Considerations
 
