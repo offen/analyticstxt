@@ -44,6 +44,10 @@ This document defines a way to specify the privacy related characteristics of an
 
 The file "analytics.txt" is not intended to replace the requirement for complying to certain regulations, but supposed to give insights beyond the scope of these regulations.
 
+## Scope of the term analytics
+
+TODO define analytics
+
 # Conventions and Definitions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
@@ -110,16 +114,45 @@ This REQUIRED multi-value field indicates which potentially privacy relevant use
 
 Values MUST be one of the following:
 
-- ip-address
-- geographic-location
-- ua-string
-- fingerprint
-- device-type
-- url
-- referrer
-- visit-duration
-- custom-events
-- session-recording
+#### ip-address
+
+The request IP address is being used.
+
+#### geographic-location
+
+Geographic location of users is determined and used.
+
+#### ua-string
+
+Information about the User Agent used by the user is being used.
+
+#### fingerprint
+
+Browser Fingerprinting is used.
+
+#### device-type
+
+The user's device type (e.g. mobile / tablet / desktop) is being determined and used.
+
+#### url
+
+The URL of a visit is collected and used.
+
+#### referrer
+
+The referrer of a visit is collected and used.
+
+#### visit-duration
+
+The duration of a visit, either on page- or on session-level is measured and used.
+
+#### custom-events
+
+Custom events like conversion goals are defined and used. This can be left out in case the analytics software in use offers such functionality, but implementors chose not to use the feature.
+
+#### session-recording
+
+Detailed behavior like mouse movement and scrolling is recorded and can possibly be played back when analyzing the analytics data.
 
 Example:
 
@@ -133,12 +166,25 @@ This REQUIRED multi-value field indicates whether data is persisted on the clien
 
 Values MUST be one of the following:
 
-- first-party-cookies
-- third-party-cookies
-- local-storage
-- etag
-- other
-- none
+#### first-party-cookies
+
+First party cookies are in use. There is no differentiation between session or persistent cookies, just like HTTP and JavaScript cookies are considered equal.
+
+#### third-party-cookies
+
+Third party cookies are in use. There is no differentiation between session or persistent cookies, just like HTTP and JavaScript cookies are considered equal.
+
+#### local-storage
+
+Data is persisted on the client using non-cookie JavaScript APIs like `localStorage`, `sessionStorage` or `IndexedDB`
+
+#### etag
+
+The analytics software leverages browser caches to store identifiers.
+
+#### none
+
+No data is persisted on the client during the collection of usage data.
 
 Example:
 
@@ -152,11 +198,25 @@ This REQUIRED multi-value field indicates the technical implementation details f
 
 Values MUST be one of the following:
 
-- javascript
-- pixel
-- server-side
-- logs
-- other
+#### javascript
+
+A client-side script is used to collect data.
+
+#### pixel
+
+A resource - typically a pixel - downloaded via HTTP is being used to collect data through the request parameters.
+
+#### server-side
+
+Collection of usage data is happening on the server side at application layer.
+
+#### logs
+
+Usage data is being calculated from server log files.
+
+#### other
+
+Other techniques that are not described in this section are in use.
 
 Example:
 
@@ -170,9 +230,17 @@ This REQUIRED multi-value field discloses information about whether user consent
 
 Values MUST be one of the following:
 
-- opt-in
-- opt-out
-- none
+#### opt-in
+
+No usage data is collected before users have given their consent.
+
+#### opt-out
+
+Users can opt out of collection of usage data using a dedicated feature tailored towards the user audience.
+
+#### none
+
+The software does not define a way for users to opt in or opt out of the collection of usage data.
 
 Example:
 
@@ -197,9 +265,17 @@ This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session 
 
 The value MUST be one of the following:
 
-- anonymous (each event is anonymous)
-- session (a user can be identified throughout a single browser session, session is defined as per browser session)
-- user (a user can be identified across multiple sessions)
+#### anonymous
+
+Each event that is collected is anonymous. There is now way to connect two pageviews or similar.
+
+#### session
+
+A user can be reidentified throughout a single browser session.
+
+#### user
+
+A user can be identified across multiple browser sessions.
 
 Example:
 
@@ -213,13 +289,18 @@ This OPTIONAL, RECOMMENDED multi-value field indicates whether the website provi
 
 Values MUST be one of the following:
 
-- user
-- public
+#### user
+
+Users can access the usage data that is associated with them in a non-aggregated way, isolating all data that is specific to their current means of reidentification.
+
+#### public
+
+Usage statistics for the site or service are available to the general public.
 
 Example:
 
 ```
-Visibility: user
+Visibility: public
 ```
 
 ### Compliance
