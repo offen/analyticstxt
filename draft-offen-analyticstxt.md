@@ -416,8 +416,3 @@ Specification document(s): this document
 Status: permanent
 
 --- back
-
-# Acknowledgments
-{:numbered="false"}
-
-TODO acknowledge.
