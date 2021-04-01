@@ -93,9 +93,9 @@ The content of the comment may contain any ASCII or Unicode characters in the %x
 
 Example:
 
-```
+~~~~~~~~~~
 # A comment
-```
+~~~~~~~~~~
 
 Implementors SHOULD make deliberate use of comments to make an analytics.txt file more accessible for non-technical audiences.
 
@@ -122,9 +122,9 @@ The field MUST contain a valid email address which shall be used for inquiries a
 
 #### Example
 
-```
+~~~~~~~~~~
 Contact: Jane Doe <jane.doe@example.com>
-```
+~~~~~~~~~~
 
 ### Collects {#collects-field}
 
@@ -180,9 +180,9 @@ Detailed behavior like mouse movement and scrolling is recorded and can possibly
 
 #### Example
 
-```
+~~~~~~~~~~
 Collects: url, device-type, referrer
-```
+~~~~~~~~~~
 
 ### Stores
 
@@ -216,9 +216,9 @@ No data is persisted on the client during the collection of usage data.
 
 #### Example
 
-```
+~~~~~~~~~~
 Stores: 1st-party-cookies, local-storage
-```
+~~~~~~~~~~
 
 ### Uses
 
@@ -249,9 +249,9 @@ Other techniques that are not described in this section are in use.
 
 #### Example
 
-```
+~~~~~~~~~~
 Uses: script
-```
+~~~~~~~~~~
 
 ### Allows
 
@@ -275,23 +275,23 @@ The software does not define a way for users to opt in or opt out of the collect
 
 #### Example
 
-```
+~~~~~~~~~~
 Allows: opt-in, opt-out
-```
+~~~~~~~~~~
 
 ### Retains
 
 This field is REQUIRED unless the only value of Collects is none.
 The single-value field indicates the duration for which the analytics data is being stored before being delete.
-The value is a duration as defined in {{!RFC 3339}}.
+The value is a duration as defined in {{!RFC3339}}.
 Implementors SHOULD add a comment providing a human readable value to this field.
 
 #### Example
 
-```
+~~~~~~~~~~
 # Data is retained for twelve months
 Retains: P12M
-```
+~~~~~~~~~~
 
 ### Session
 
@@ -314,9 +314,9 @@ A user can be identified across multiple browser sessions.
 
 #### Example
 
-```
+~~~~~~~~~~
 Session: user
-```
+~~~~~~~~~~
 
 ### Variants
 
@@ -339,9 +339,9 @@ Content experiments are performed by grouping users into buckets based on their 
 
 #### Example
 
-```
+~~~~~~~~~~
 Variants: random
-```
+~~~~~~~~~~
 
 ### Visibility
 
@@ -359,9 +359,9 @@ Usage statistics for the site or service are available to the general public.
 
 #### Example
 
-```
+~~~~~~~~~~
 Visibility: public
-```
+~~~~~~~~~~
 
 ### Compliance
 
@@ -375,9 +375,9 @@ Example values are:
 
 #### Example
 
-```
+~~~~~~~~~~
 Compliance: gdpr, ccpa
-```
+~~~~~~~~~~
 
 ### Vendors
 
@@ -393,16 +393,15 @@ Example values are:
 
 #### Example
 
-```
+~~~~~~~~~~
 Vendors: offen, hotjar
-```
+~~~~~~~~~~
 
 ## Examples of analytics.txt files
 
-### Example of a site with analytics
+Example of a site with analytics:
 
-```
-# analytics.txt file for https://www.analyticstxt.org
+~~~~~~~~~~
 Author: Frederik Ring <hioffen@posteo.de>
 
 Collects: url, referrer, device-type
@@ -419,15 +418,15 @@ Session: user
 Variants: none
 Visibility: user
 Compliance: gdpr
-```
+~~~~~~~~~~
 
-### Example of a site not using any analytics
+Example of a site not using any analytics:
 
-```
+~~~~~~~~~~
 # analytics.txt file for https://www.frederikring.com
 Author: Frederik Ring <hioffen@posteo.de>
 Collects: none
-```
+~~~~~~~~~~
 
 # Location of the analytics.txt file {#location}
 
@@ -443,9 +442,9 @@ Implementors MAY signal the location of an analytics.txt file in the context of 
 
 Example:
 
-```html
+~~~~~~~~~~
 <link rel="analytics" href="https://example.com/resources/analytics.txt">
-```
+~~~~~~~~~~
 
 ### HTTP Header
 
@@ -453,9 +452,9 @@ In addition to that implementors MAY send an HTTP header of `X-Analytics-Txt` wi
 
 Example:
 
-```
+~~~~~~~~~~
 X-Analytics-Txt: https://example.com/resources/analytics.txt
-```
+~~~~~~~~~~
 
 ## Precendence
 

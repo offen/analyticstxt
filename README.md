@@ -1,10 +1,10 @@
-# A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.
+# analytics.txt
+
+## A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.
 
 This is the working area for the individual Internet-Draft, "A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.".
 
 * [Editor's Copy](https://offen.github.io/analyticstxt/#go.draft-offen-analyticstxt.html)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-offen-analyticstxt)
-* [Compare Editor's Copy to Individual Draft](https://offen.github.io/analyticstxt/#go.draft-offen-analyticstxt.diff)
 
 ## Building the Draft
 
