@@ -27,6 +27,28 @@ author:
 
 normative:
 informative:
+  DNT:
+    title: Tracking Preference Expression (DNT)
+    target: https://www.w3.org/TR/tracking-dnt/
+    author:
+      -
+        name: Roy T. Fielding
+      -
+        name: David Singer
+  GPC:
+    title: Global Privacy Control (GPC)
+    target: https://globalprivacycontrol.github.io/gpc-spec/
+    author:
+      -
+        name: Robin Berjon
+      -
+        name: Sebastian Zimmeck
+      -
+        name: Ashkan Soltani
+      -
+        name: David Harbage
+      -
+        name: Peter Snyder
 
 --- abstract
 
@@ -293,6 +315,32 @@ Implementors SHOULD add a comment providing a human readable value to this field
 Retains: P12M
 ~~~~~~~~~~
 
+### Honors
+
+This OPTIONAL, RECOMMENDED single-value field indicates which browser level privacy controls are being honored when collecting data.
+
+#### Allowed values
+
+##### none
+
+Data is collected no matter the browser settings in use. This value MUST NOT be used in conjunction with other values.
+
+##### do-not-track
+
+User-Agents that have DoNotTrack {{DNT}} enabled will be excluded from the collection of analytics data.
+
+https://www.w3.org/TR/tracking-dnt/
+
+##### global-privacy-control
+
+User agents that have Global Privacy Control {{GPC}} enabled will be excluded from the collection of analytics data.
+
+#### Example
+
+~~~~~~~~~~
+Honors: do-not-track, global-privacy-control
+~~~~~~~~~~
+
 ### Session
 
 This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session tracking.
@@ -415,6 +463,7 @@ Allows: opt-in, opt-out
 Retains: P6M
 
 # Optional fields
+Honors: none
 Session: user
 Variants: none
 Visibility: user
