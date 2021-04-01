@@ -31,27 +31,29 @@ informative:
 --- abstract
 
 Privacy has become an important feature for users of websites and services.
-This document propopes a discoverable way for websites and services to declare their usage of analytics and tracking software to both users and the tooling used by users.
-analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way that is understandable for a non-technical audience, but also useful for consumption by tools and software.
+This document propopes a discoverable way for websites and services to declare and transparently disclose their usage of analytics and tracking software to both users and the tooling used by users.
+analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way, that is understandable for a non-technical audience, but also useful for consumption by tools and software.
 
 --- middle
 
 # Introduction
 
-The usage of analytics software and user tracking on websites is becoming an increasingly important factor for users on the internet.
-Yet, there is no well-defined way of accessing such information in a standardized way.
-Legislation only covers certain technological implementations, incentivizing software to find workarounds, thus being able to hide their presence from users.
+User tracking and the usage of analytics software on websites is becoming an increasingly important factor, affecting the way the user facing internet works and behaves.
+Yet, there is no well-defined way of accessing information about what software is being used and what data is being collected by such software in a standardized way.
+Legislation only covers a subset of the range of existing technological implementations, incentivizing software to find workarounds, thus being able to hide their presence from users.
 Automated audits are limited to aspects that are possible to detect in clients.
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
 We aim for this information to be consumable both by humans as well as other software.
 For example, search engines or browser extensions could make use of this data and display information to users.
 
-The file "analytics.txt" is not intended to replace the requirement for complying to certain regulations, but supposed to give insights beyond the scope of these regulations.
+The file "analytics.txt" is not intended to replace the requirement for complying to existing regulations, but supposed to give insights beyond the scope of these regulations.
 
-## Scope of the term "analytics" in this document
+## Scope of the term "Analytics" in this document
 
-TODO define analytics
+Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help providers to better understand and optimize their services towards real world user behavior.
+This can also include measuring different content against different groups of users.
+Analytics or User Tracking as referred to in this document does not refer to the identification of users in order to deliver tailored advertising or content across websites of any kind.
 
 # Conventions and Definitions
 
@@ -370,7 +372,7 @@ Author: Frederik Ring <hioffen@posteo.de>
 
 Collects: url, referrer, device-type
 Stores: first-party-cookies, local-storage
-# Data is encrypted end-to-end
+# Usage data is encrypted end-to-end
 Uses: javascript
 # Users can also delete their usage data only without opting out
 Allows: opt-in, opt-out
