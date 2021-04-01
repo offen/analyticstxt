@@ -447,7 +447,7 @@ Vendors: offen, hotjar
 
 ## Examples of analytics.txt files
 
-Example of a site with analytics:
+### A site using analytics
 
 ~~~~~~~~~~
 # analytics.txt file for https://www.analyticstxt.org
@@ -470,7 +470,7 @@ Visibility: user
 Compliance: gdpr
 ~~~~~~~~~~
 
-Example of a site not using any analytics:
+### A site not using any analytics
 
 ~~~~~~~~~~
 # analytics.txt file for https://www.frederikring.com
