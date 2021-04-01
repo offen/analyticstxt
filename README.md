@@ -1,6 +1,8 @@
 # analytics.txt
 
-## A File Format for Discoverable Usage of Analytics
+This specification is under heavy development. If you have feedback, feel invited to open an issue, but please consider this draft incomplete until we remove this section.
+
+## A File Format for Discoverable Use of Analytics Software
 
 This is the working area for the individual Internet-Draft, "A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.".
 

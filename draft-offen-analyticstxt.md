@@ -1,5 +1,5 @@
 ---
-title: A File Format for Discoverable Usage of Analytics
+title: A File Format for Discoverable Use of Analytics Software
 abbrev: analytics.txt
 docname: draft-offen-analyticstxt-latest
 category: info
