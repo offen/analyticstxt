@@ -1,5 +1,5 @@
 ---
-title: A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.
+title: A File Format for Discoverable Usage of Analytics
 abbrev: analytics.txt
 docname: draft-offen-analyticstxt-latest
 category: info
