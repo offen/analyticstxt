@@ -402,6 +402,7 @@ Vendors: offen, hotjar
 Example of a site with analytics:
 
 ~~~~~~~~~~
+# analytics.txt file for https://www.analyticstxt.org
 Author: Frederik Ring <hioffen@posteo.de>
 
 Collects: url, referrer, device-type
