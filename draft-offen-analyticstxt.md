@@ -310,6 +310,31 @@ A user can be identified across multiple browser sessions.
 Session: user
 ```
 
+### Variants
+
+This OPTIONAL, RECOMMENDED single-value field indicates the usage of content experiments like A/B testing.
+It MUST contain a single value only.
+
+#### Allowed values
+
+##### none
+
+All users are served the same content without any changes.
+
+##### random
+
+Content experiments are performed by grouping users randomly into buckets and serving them different content.
+
+##### behavioral
+
+Content experiments are performed by grouping users into buckets based on their behavior and serving them different content.
+
+#### Example
+
+```
+Variants: random
+```
+
 ### Visibility
 
 This OPTIONAL, RECOMMENDED multi-value field indicates whether the website provides a way for users or the general public to access data.
@@ -381,6 +406,7 @@ Retains: P6M
 
 # Optional fields
 Session: user
+Variants: none
 Visibility: user
 Compliance: gdpr
 Vendors: offen
