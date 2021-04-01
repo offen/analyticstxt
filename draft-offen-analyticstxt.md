@@ -126,12 +126,16 @@ The field MUST contain a valid email address which shall be used for inquiries a
 Contact: Jane Doe <jane.doe@example.com>
 ```
 
-### Collects
+### Collects {#collects-field}
 
 This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification.
 These MUST also be specified if properties are not persisted as-is, but stored or otherwise computed in a hashed and/or combined form.
 
 #### Allowed values
+
+##### none
+
+No analytics data is collected at all.
 
 ##### ip-address
 
@@ -182,7 +186,8 @@ Collects: url, device-type, referrer
 
 ### Stores
 
-This REQUIRED multi-value field indicates whether data is persisted on the client during the collection of analytics data and declares the browser features used for doing so.
+This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
+The multi-value field indicates whether data is persisted on the client during the collection of analytics data and declares the browser features used for doing so.
 If no data is being persisted, the value `none` MUST be used.
 
 #### Allowed values
@@ -217,7 +222,8 @@ Stores: 1st-party-cookies, local-storage
 
 ### Uses
 
-This REQUIRED multi-value field indicates the technical implementation details for how analytics data is being collected.
+This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
+The multi-value field indicates the technical implementation details for how analytics data is being collected.
 
 #### Allowed values
 
@@ -249,7 +255,8 @@ Uses: script
 
 ### Allows
 
-This REQUIRED multi-value field discloses information about whether user consent is being acquired before collecting analytics data, and if it is possible for users to opt out of the collection of usage data.
+This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
+The multi-value field discloses information about whether user consent is being acquired before collecting analytics data, and if it is possible for users to opt out of the collection of usage data.
 Existing regulations about user consent do not apply to this field.
 
 #### Allowed values
@@ -274,7 +281,8 @@ Allows: opt-in, opt-out
 
 ### Retains
 
-This REQUIRED single-value field indicates the duration for which the analytics data is being stored before being delete.
+This field is REQUIRED unless the only value of Collects is none.
+The single-value field indicates the duration for which the analytics data is being stored before being delete.
 The value is a duration as defined in {{!RFC 3339}}.
 Implementors SHOULD add a comment providing a human readable value to this field.
 
@@ -389,7 +397,9 @@ Example values are:
 Vendors: offen, hotjar
 ```
 
-## Example of an analytics.txt file
+## Examples of analytics.txt files
+
+### Example of a site with analytics
 
 ```
 # analytics.txt file for https://www.analyticstxt.org
@@ -409,7 +419,14 @@ Session: user
 Variants: none
 Visibility: user
 Compliance: gdpr
-Vendors: offen
+```
+
+### Example of a site not using any analytics
+
+```
+# analytics.txt file for https://www.frederikring.com
+Author: Frederik Ring <hioffen@posteo.de>
+Collects: none
 ```
 
 # Location of the analytics.txt file {#location}
