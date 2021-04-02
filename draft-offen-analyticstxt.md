@@ -53,7 +53,7 @@ informative:
 --- abstract
 
 Privacy has become an important feature for users of websites and services.
-This document propopes a discoverable way for websites and services to declare and transparently disclose their usage of analytics and tracking software to both users and the tooling used by users.
+This document proposes a discoverable way for websites and services to declare and transparently disclose their usage of analytics and tracking software to both users and the tooling used by users.
 analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way, that is understandable for a non-technical audience, but also useful for consumption by tools and software.
 
 --- middle
@@ -62,7 +62,7 @@ analytics.txt aims to be an elaborate standard that describes the usage of analy
 
 User tracking and the usage of analytics software on websites is becoming an increasingly important factor, affecting the way the user facing internet works and behaves.
 Yet, there is no well-defined way of accessing information about what software is being used and what data is being collected by such software in a standardized way.
-Legislation only covers a subset of the range of existing technological implementations, incentivizing software to find workarounds, thus being able to hide their presence from users.
+Legislation only covers a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus being able to hide their presence from users.
 Automated audits are limited to aspects that are possible to detect in clients.
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
@@ -101,9 +101,8 @@ The "value" comes after the field name and follows the syntax defined for "unstr
 The file MAY also contain blank lines.
 
 A field MUST always consist of a name and a value (for example: "Author: Jane Doe <jane.doe@example.com>").
-An analytics.txt file can have an unlimited number of fields.
 Each field MUST appear on its own line.
-Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," (%x2c).
+Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," character (%x2c).
 Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
 
 Implementors SHOULD aim for creating an analytics.txt file that is easy to understand by non-technical audiences.
@@ -139,7 +138,7 @@ In case a field contains an enumeration of multiple values, implementors MUST re
 
 ### Author {#author-field}
 
-This REQUIRED field holds an OPTIONAL author name and a REQUIRED email address providing information about who is responsible for maintaining the contents of the file.
+This REQUIRED field holds an OPTIONAL author name and a REQUIRED email address providing information about a person or entity responsible for maintaining the contents of the file.
 The field MUST contain a valid email address which shall be used for inquiries about the correctness and additions to the data provided in the file.
 
 #### Example
@@ -151,13 +150,13 @@ Contact: Jane Doe <jane.doe@example.com>
 ### Collects {#collects-field}
 
 This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification.
-These MUST also be specified if properties are not persisted as-is, but stored or otherwise computed in a hashed and/or combined form.
+These MUST also be specified if a property is not persisted as-is, but stored or processed in a hashed and/or combined form.
 
 #### Allowed values
 
 ##### none
 
-No analytics data is collected at all.
+No analytics data is collected at all. This value MUST NOT be used in conjunction with other values.
 
 ##### ip-address
 
@@ -166,22 +165,25 @@ The request IP address is being used.
 ##### geographic-location
 
 Geographic location of users is determined and used.
+This could for example be derived from the request IP or from using Browser APIs.
 
 ##### ua-string
 
-Information about the User Agent used by the user is being used.
+Information about the utilized User Agent is being collected.
 
 ##### fingerprint
 
 Browser Fingerprinting is used.
+Such mechanisms usually try to compute a unique identifier from properties of the host Operating System, allowing them to re-identify users without having to persist an identifier.
 
 ##### device-type
 
-The user's device type (e.g. mobile / tablet / desktop) is being determined and used.
+The user's device type (e.g. mobile / tablet / desktop) is being determined and collected.
 
 ##### url
 
 The URL of a visit is collected and used.
+This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.
 
 ##### referrer
 
@@ -208,11 +210,15 @@ Collects: url, device-type, referrer
 
 ### Stores
 
-This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
+This field is REQUIRED unless the only value of the Collects field as per {{collects-field}} is none.
 The multi-value field indicates whether data is persisted on the client during the collection of analytics data and declares the browser features used for doing so.
-If no data is being persisted, the value `none` MUST be used.
+In case no data is being persisted at all, the value none MUST be used.
 
 #### Allowed values
+
+##### none
+
+No data is persisted on the client during the collection of usage data. This value MUST NOT be used in conjunction with other values.
 
 ##### first-party-cookies
 
@@ -226,15 +232,13 @@ There is no differentiation between session or persistent cookies, just like HTT
 
 ##### local-storage
 
-Data is persisted on the client using non-cookie JavaScript APIs like `localStorage`, `sessionStorage` or `IndexedDB`
+Data is persisted on the client using non-cookie JavaScript APIs like `localStorage`, `sessionStorage`, `WebSQL` or `IndexedDB`
 
-##### etag
+##### cache
 
 The analytics software leverages browser caches to store identifiers.
-
-##### none
-
-No data is persisted on the client during the collection of usage data.
+For example, ETag headers can be used to identify users based on their browser caches' contents.
+This value is not required in case the analytics software sends static resources with cache headers, but does not make use of the request headers on subsequent requests.
 
 #### Example
 
@@ -255,7 +259,7 @@ A client-side script is used to collect data.
 
 ##### pixel
 
-A static resource - typically a pixel - downloaded via HTTP is being used to collect data through the request parameters.
+A static resource - typically a pixel - transferred via HTTP is being used to collect data through the request parameters.
 
 ##### server-side
 
@@ -279,7 +283,6 @@ Uses: script
 
 This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
 The multi-value field discloses information about whether user consent is being acquired before collecting analytics data, and if it is possible for users to opt out of the collection of usage data.
-Existing regulations about user consent do not apply to this field.
 
 #### Allowed values
 
@@ -290,6 +293,7 @@ No usage data is collected before users have given their consent.
 ##### opt-out
 
 Users can opt out of collection of usage data using a dedicated feature tailored towards the user audience.
+This value is only applicable in case no data at all is collected after having opted out.
 
 ##### none
 
@@ -304,8 +308,8 @@ Allows: opt-in, opt-out
 ### Retains
 
 This field is REQUIRED unless the only value of Collects is none.
-The single-value field indicates the duration for which the analytics data is being stored before being delete.
-The value is a duration as defined in {{!RFC3339}}.
+The single-value field indicates the duration for which the analytics data is being stored before being deleted.
+The value is either a duration as defined in {{!RFC3339}} or the token "perpetual" in case data is retained without expiring it at some point.
 Implementors SHOULD add a comment providing a human readable value to this field.
 
 #### Example
@@ -329,8 +333,6 @@ Data is collected no matter the browser settings in use. This value MUST NOT be 
 
 User-Agents that have DoNotTrack {{DNT}} enabled will be excluded from the collection of analytics data.
 
-https://www.w3.org/TR/tracking-dnt/
-
 ##### global-privacy-control
 
 User agents that have Global Privacy Control {{GPC}} enabled will be excluded from the collection of analytics data.
@@ -343,18 +345,18 @@ Honors: do-not-track, global-privacy-control
 
 ### Session
 
-This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session tracking.
+This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session and user lifecycle tracking.
 It MUST contain a single value only.
 
 #### Allowed values
 
 ##### anonymous
 
-Each event that is collected is anonymous. There is now way to connect two pageviews or similar.
+Each event that is collected is anonymous. There is no way to connect group multiple pageviews by user or similar.
 
 ##### session
 
-A user can be reidentified throughout a single browser session.
+A user can be re-identified throughout a single browser session.
 
 ##### user
 
@@ -397,9 +399,13 @@ This OPTIONAL, RECOMMENDED multi-value field indicates whether the website provi
 
 #### Allowed values
 
+##### none
+
+The data collected is not shared with any party unless affiliated with implementor.
+
 ##### user
 
-Users can access the usage data that is associated with them in a non-aggregated way, isolating all data that is specific to their current means of reidentification.
+Users can access the usage data that is associated with them in a non-aggregated way, isolating all data that is specific to their current means of re-identification.
 
 ##### public
 
@@ -413,7 +419,7 @@ Visibility: public
 
 ### Compliance
 
-This OPTIONAL field indicates conformance with certain regulations and legislations.
+This OPTIONAL field indicates conformance with certain regulations and legislation.
 
 Example values are:
 
@@ -486,7 +492,7 @@ By default, an analytics.txt file SHOULD be placed in the ".well-known" path as 
 
 In case implementors are unable to meet this requirement, other options are available.
 
-### link tag
+### link Tag
 
 Implementors MAY signal the location of an analytics.txt file in the context of a HTML document using a link element of rel "analytics"
 
@@ -506,7 +512,7 @@ Example:
 X-Analytics-Txt: https://example.com/resources/analytics.txt
 ~~~~~~~~~~
 
-## Precendence
+## Precedence
 
 In case multiple of these signals are being used, the precedence taken is:
 
@@ -531,7 +537,7 @@ Implementors MUST use the "Author" field (see {{author-field}}) to allow inquiri
 
 Implementors should be aware that disclosing mandatory author information as per {{author-field}} in such a file exposes them to possible Spam schemes or spurious requests.
 
-## Multi-user Environments
+## Multi-user environments
 
 In multi-user / multi-tenant environments, it may possible for a single user to take over the location of the "/.well-known/security.txt" file which would also apply to others.
 Organizations should ensure the ".well-known" location is properly protected. Implementors can instead use other locations as per {{location}} in such scenarios.
