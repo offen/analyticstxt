@@ -441,14 +441,13 @@ Example values are:
 
 - google-analytics
 - plausible
-- offen
 - hotjar
 - matomo
 
 #### Example
 
 ~~~~~~~~~~
-Vendors: offen, hotjar
+Vendors: google-analytics, hotjar
 ~~~~~~~~~~
 
 ## Examples of analytics.txt files
@@ -480,7 +479,7 @@ Compliance: gdpr
 
 ~~~~~~~~~~
 # analytics.txt file for https://www.frederikring.com
-Author: Frederik Ring <hioffen@posteo.de>
+Author: Frederik Ring <frederik.ring@posteo.de>
 Collects: none
 ~~~~~~~~~~
 
