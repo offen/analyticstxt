@@ -343,7 +343,7 @@ User agents that have Global Privacy Control {{GPC}} enabled will be excluded fr
 Honors: do-not-track, global-privacy-control
 ~~~~~~~~~~
 
-### Session
+### Tracks
 
 This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session and user lifecycle tracking.
 It MUST contain a single value only.
@@ -354,13 +354,13 @@ It MUST contain a single value only.
 
 Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar.
 
-##### session
+##### sessions
 
-A user can be re-identified throughout a single browser session.
+Users can be re-identified throughout a single browser session.
 
-##### user
+##### users
 
-A user can be identified across multiple browser sessions.
+Users can be identified across multiple browser sessions.
 
 #### Example
 
@@ -368,7 +368,7 @@ A user can be identified across multiple browser sessions.
 Session: user
 ~~~~~~~~~~
 
-### Variants
+### Varies
 
 This OPTIONAL, RECOMMENDED single-value field indicates the usage of content experiments like A/B testing.
 It MUST contain a single value only.
@@ -393,7 +393,7 @@ Content experiments are performed by grouping users into buckets based on their 
 Variants: random
 ~~~~~~~~~~
 
-### Visibility
+### Shares
 
 This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared with select users, the general public or third parties.
 
@@ -403,11 +403,11 @@ This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared wi
 
 The data collected is not shared with any party unless affiliated with implementor.
 
-##### user
+##### per-user
 
 Users can access the usage data that is associated with them in a non-aggregated way, isolating all data that is specific to their current means of re-identification.
 
-##### public
+##### general-public
 
 Usage statistics for the site or service are available to the general public.
 
@@ -418,10 +418,10 @@ Data is being shared non-publicly with third parties. This MUST also be specifie
 #### Example
 
 ~~~~~~~~~~
-Visibility: public
+Visibility: general-public
 ~~~~~~~~~~
 
-### Compliance
+### Implements
 
 This OPTIONAL field indicates conformance with certain regulations and legislation.
 
@@ -437,7 +437,7 @@ Example values are:
 Compliance: gdpr, ccpa
 ~~~~~~~~~~
 
-### Vendors
+### Deploys
 
 This OPTIONAL field indicates which software is being used for collecting analytics.
 
@@ -473,10 +473,10 @@ Retains: P6M
 
 # Optional fields
 Honors: none
-Session: user
-Variants: none
-Visibility: user
-Compliance: gdpr
+Tracks: users
+Varies: none
+Shares: per-user
+Implements: gdpr
 ~~~~~~~~~~
 
 ### A site not using any analytics
