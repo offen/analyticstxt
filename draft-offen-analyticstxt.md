@@ -365,7 +365,7 @@ Users can be identified across multiple browser sessions.
 #### Example
 
 ~~~~~~~~~~
-Session: user
+Tracks: users
 ~~~~~~~~~~
 
 ### Varies
@@ -390,7 +390,7 @@ Content experiments are performed by grouping users into buckets based on their 
 #### Example
 
 ~~~~~~~~~~
-Variants: random
+Varies: random
 ~~~~~~~~~~
 
 ### Shares
@@ -418,7 +418,7 @@ Data is being shared non-publicly with third parties. This MUST also be specifie
 #### Example
 
 ~~~~~~~~~~
-Visibility: general-public
+Shares: general-public
 ~~~~~~~~~~
 
 ### Implements
@@ -434,7 +434,7 @@ Example values are:
 #### Example
 
 ~~~~~~~~~~
-Compliance: gdpr, ccpa
+Implements: gdpr, ccpa
 ~~~~~~~~~~
 
 ### Deploys
@@ -451,7 +451,7 @@ Example values are:
 #### Example
 
 ~~~~~~~~~~
-Vendors: google-analytics, hotjar
+Deploys: google-analytics, hotjar
 ~~~~~~~~~~
 
 ## Examples of analytics.txt files
@@ -459,7 +459,7 @@ Vendors: google-analytics, hotjar
 ### A site using analytics
 
 ~~~~~~~~~~
-# analytics.txt file for https://www.analyticstxt.org
+# analytics.txt file for www.analyticstxt.org
 Author: Frederik Ring <hioffen@posteo.de>
 
 Collects: url, referrer, device-type
@@ -482,7 +482,7 @@ Implements: gdpr
 ### A site not using any analytics
 
 ~~~~~~~~~~
-# analytics.txt file for https://www.frederikring.com
+# analytics.txt file for www.frederikring.com
 Author: Frederik Ring <frederik.ring@posteo.de>
 Collects: none
 ~~~~~~~~~~
