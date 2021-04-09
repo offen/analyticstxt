@@ -52,30 +52,30 @@ informative:
 
 --- abstract
 
-Privacy has become an important feature for users of websites and services.
-This document proposes a discoverable way for websites and services to declare and transparently disclose their usage of analytics and tracking software to both users and the tooling used by users.
-analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way, that is understandable for a non-technical audience, but also useful for consumption by tools and software.
+Internet privacy has become an important feature for users of websites and services.
+This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software to users and make it discoverable for their tools.
+analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way, understandable for a non-technical audience but also useful for consumption by tools and software.
 
 --- middle
 
 # Introduction
 
-User tracking and the usage of analytics software on websites is becoming an increasingly important factor, affecting the way the user facing internet works and behaves.
-Yet, there is no well-defined way of accessing information about what software is being used and what data is being collected by such software in a standardized way.
-Legislation only covers a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus being able to hide their presence from users.
-Automated audits are limited to aspects that are possible to detect in clients.
+User tracking and the usage of analytics software on websites has become a widely employed routine, visibly and invisibly affecting the way the user facing internet works and behaves.
+Yet, there is no well-defined way of accessing information about what software is being used and what data it is collecting in a standardized way.
+Legislation can only ever cover a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus allowing them to hide their presence from users.
+Automated audits are limited to aspects that are possible to detect in clients, but cannot disclose other important implementation details.
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
-We aim for this information to be consumable both by humans as well as other software.
+We aim for this information to be consumable both by humans as well as software.
 For example, search engines or browser extensions could make use of this data and display information to users.
 
-The file "analytics.txt" is not intended to replace the requirement for complying to existing regulations, but supposed to give insights beyond the scope of these regulations.
+The file "analytics.txt" is not intended to replace the requirement for complying with existing regulations, but supposed to give insights beyond the scope of these regulations.
 
 ## Scope of the term "Analytics" in this document
 
-Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help providers to better understand and optimize their services towards real world user behavior.
+Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help the providers of websites and services to better understand and optimize their services towards real world user behavior.
 This can also include measuring different content against different groups of users.
-Analytics or User Tracking as referred to in this document does not refer to the identification of users in order to deliver tailored advertising or content across websites of any kind.
+Analytics or User Tracking as referred to in this document does not refer to the identification of users in order to deliver customized advertising or content across websites of any kind.
 
 # Conventions and Definitions
 
@@ -134,7 +134,7 @@ Special attention is required for defining the allowed values in enumerations to
 Field names are case-insensitive, yet implementors SHOULD use the capitalized style used in this document for consistency.
 
 Field values are case-insensitive.
-In case a field contains an enumeration of multiple values, implementors MUST refer to the allowed values given by the specification.
+Unless otherwise specified, implementors MUST refer to the allowed values given by the specification.
 
 ### Author {#author-field}
 
@@ -144,13 +144,13 @@ The field MUST contain a valid email address which shall be used for inquiries a
 #### Example
 
 ~~~~~~~~~~
-Contact: Jane Doe <jane.doe@example.com>
+Author: Jane Doe <jane.doe@example.com>
 ~~~~~~~~~~
 
 ### Collects {#collects-field}
 
-This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification.
-These MUST also be specified if a property is not persisted as-is, but stored or processed in a hashed and/or combined form.
+This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification or other procedures.
+These values MUST also be specified if a property is not persisted as-is, but stored or processed in a hashed and/or combined form.
 
 #### Allowed values
 
@@ -165,7 +165,7 @@ The request IP address is being used.
 ##### geographic-location
 
 Geographic location of users is determined and used.
-This could for example be derived from the request IP or from using Browser APIs.
+This could for example be derived from the request IP, or from using browser APIs.
 
 ##### ua-string
 
@@ -182,12 +182,12 @@ The user's device type (e.g. mobile / tablet / desktop) is being determined and 
 
 ##### url
 
-The URL of a visit is collected and used.
+The URL of a visit, including its path, is collected and used.
 This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.
 
 ##### referrer
 
-The Referrer of a visit is collected and used.
+The Referrer of a visit is collected and used. This MUST also be specified if the referrer value is stripped of potential path fragments.
 
 ##### visit-duration
 
@@ -196,7 +196,7 @@ The duration of a visit, either on page- or on session-level is measured and use
 ##### custom-events
 
 Custom events like conversion goals are defined and used.
-This can be left out in case the analytics software in use offers such functionality, but implementors chose not to use the feature.
+This MAY be left out in case the analytics software in use offers such functionality, but implementors chose not to use the feature.
 
 ##### session-recording
 
@@ -302,12 +302,12 @@ The software does not define a way for users to opt in or opt out of the collect
 #### Example
 
 ~~~~~~~~~~
-Allows: opt-in, opt-out
+Allows: opt-out
 ~~~~~~~~~~
 
 ### Retains
 
-This field is REQUIRED unless the only value of Collects is none.
+This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
 The single-value field indicates the duration for which the analytics data is being stored before being deleted.
 The value is either a duration as defined in {{!RFC3339}} or the token "perpetual" in case data is retained without expiring it at some point.
 Implementors SHOULD add a comment providing a human readable value to this field.
@@ -352,7 +352,7 @@ It MUST contain a single value only.
 
 ##### anonymous
 
-Each event that is collected is anonymous. There is no way to connect group multiple pageviews by user or similar.
+Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar.
 
 ##### session
 
@@ -395,7 +395,7 @@ Variants: random
 
 ### Visibility
 
-This OPTIONAL, RECOMMENDED multi-value field indicates whether the website provides a way for users or the general public to access data.
+This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared with select users, the general public or third parties.
 
 #### Allowed values
 
@@ -410,6 +410,10 @@ Users can access the usage data that is associated with them in a non-aggregated
 ##### public
 
 Usage statistics for the site or service are available to the general public.
+
+##### third-party
+
+Data is being shared non-publicly with third parties. This MUST also be specified when datasets are aggregated or pseudonymized beforehand.
 
 #### Example
 
