@@ -325,7 +325,7 @@ Retains: P12M
 
 ### Honors
 
-This OPTIONAL, RECOMMENDED single-value field indicates which browser level privacy controls are being honored when collecting data.
+This OPTIONAL, RECOMMENDED multi-value field indicates which browser level privacy controls are being honored when collecting data.
 
 #### Allowed values
 
@@ -349,18 +349,17 @@ Honors: do-not-track, global-privacy-control
 
 ### Tracks
 
-This OPTIONAL, RECOMMENDED single-value field indicates the coverage in session and user lifecycle tracking.
-It MUST contain a single value only.
+This OPTIONAL, RECOMMENDED multi-value field indicates the coverage in session and user lifecycle tracking.
 
 #### Allowed values
 
 ##### anonymous
 
-Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar.
+Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar. This value MUST NOT be used in conjunction with other values.
 
 ##### sessions
 
-Users can be re-identified throughout a single browser session.
+Metrics that source from a single browser session can be grouped and distinguished as such.
 
 ##### users
 
@@ -369,7 +368,7 @@ Users can be identified across multiple browser sessions.
 #### Example
 
 ~~~~~~~~~~
-Tracks: users
+Tracks: sessions, users
 ~~~~~~~~~~
 
 ### Varies
@@ -477,7 +476,7 @@ Retains: P6M
 
 # Optional fields
 Honors: none
-Tracks: users
+Tracks: sessions, users
 Varies: none
 Shares: per-user
 Implements: gdpr
