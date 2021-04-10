@@ -290,6 +290,10 @@ The multi-value field discloses information about whether user consent is being 
 
 #### Allowed values
 
+##### none
+
+The software does not define a way for users to opt in or opt out of the collection of usage data.
+
 ##### opt-in
 
 No usage data is collected before users have given their consent.
@@ -298,10 +302,6 @@ No usage data is collected before users have given their consent.
 
 Users can opt out of collection of usage data using a dedicated feature tailored towards the user audience.
 This value is only applicable in case no data at all is collected after having opted out.
-
-##### none
-
-The software does not define a way for users to opt in or opt out of the collection of usage data.
 
 #### Example
 
@@ -462,8 +462,8 @@ Deploys: google-analytics, hotjar
 ### A site using analytics
 
 ~~~~~~~~~~
-# analytics.txt file for www.analyticstxt.org
-Author: Frederik Ring <hioffen@posteo.de>
+# analytics.txt file for www.example.com
+Author: Jane Doe <doe@example.com>
 
 Collects: url, referrer, device-type
 Stores: first-party-cookies, local-storage
@@ -482,11 +482,22 @@ Shares: per-user
 Implements: gdpr
 ~~~~~~~~~~
 
+### Specifying required fields only
+
+~~~~~~~~~~
+Author: John Doe <doe@example.com>
+Collects: url, ip-address, geographic-location, ua-string, referrer, device-type, custom-events
+Stores: none
+Uses: javascript
+Allows: none
+Retains: perpetual
+~~~~~~~~~~
+
 ### A site not using any analytics
 
 ~~~~~~~~~~
-# analytics.txt file for www.frederikring.com
-Author: Frederik Ring <frederik.ring@posteo.de>
+# analytics.txt file for www.example.com
+Author: Jane Doe <doe@example.com>
 Collects: none
 ~~~~~~~~~~
 
