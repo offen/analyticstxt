@@ -1,5 +1,5 @@
 ---
-title: A File Format for Discoverable Use of Analytics Software
+title: A File Format for the Discoverable Use of Analytics
 abbrev: analytics.txt
 docname: draft-offen-analyticstxt-latest
 category: info
@@ -53,17 +53,21 @@ informative:
 --- abstract
 
 Internet privacy has become an important feature for users of websites and services.
-This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software to users and make it discoverable for their tools.
-analytics.txt aims to be an elaborate standard that describes the usage of analytics and tracking software in a non-biased way, understandable for a non-technical audience but also useful for consumption by tools and software.
+This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software to users, and make it discoverable for tooling.
+analytics.txt aims to be an elaborate standard that describes the characteristics of analytics and tracking software in a non-biased way, understandable for a non-technical audience, but also useful for the consumption by tools and software.
 
 --- middle
 
 # Introduction
 
+## Motivation
+
 User tracking and the usage of analytics software on websites has become a widely employed routine, visibly and invisibly affecting the way the user facing internet works and behaves.
 Yet, there is no well-defined way of accessing information about what software is being used and what data it is collecting in a standardized way.
 Legislation can only ever cover a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus allowing them to hide their presence from users.
 Automated audits are limited to aspects that are possible to detect in clients, but cannot disclose other important implementation details.
+
+## Scope of this proposal
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
 We aim for this information to be consumable both by humans as well as software.
@@ -71,11 +75,11 @@ For example, search engines or browser extensions could make use of this data an
 
 The file "analytics.txt" is not intended to replace the requirement for complying with existing regulations, but supposed to give insights beyond the scope of these regulations.
 
-## Scope of the term "Analytics" in this document
+## Definition of the term "analytics" in the scope of this document
 
 Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help the providers of websites and services to better understand and optimize their services towards real world user behavior.
 This can also include measuring different content against different groups of users.
-Analytics or User Tracking as referred to in this document does not refer to the identification of users in order to deliver customized advertising or content across websites of any kind.
+Analytics or user tracking as referred to in this document does not refer to the identification of users in order to deliver customized advertising or content across websites of any kind.
 
 # Conventions and Definitions
 
@@ -525,8 +529,8 @@ In case multiple of these signals are being used, the precedence taken is:
 
 ## Scope of a file
 
-An analytics.txt file MUST only apply to the domain or IP address in the URI used to retrieve it, not to any of its subdomains or parent domains.
-An analytics.txt file MAY also apply to products and services provided by the organization publishing the file.
+An analytics.txt file MUST only apply to the domain or IP address of the URI used to retrieve it, and SHALL NOT apply to any of its subdomains or parent domains.
+An analytics.txt file MAY also apply to products and services provided by the organization publishing the file and which cannot be mapped to a domain name or IP address.
 
 # Security Considerations
 
