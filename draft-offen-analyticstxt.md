@@ -166,12 +166,12 @@ No analytics data is collected at all. This value MUST NOT be used in conjunctio
 
 The request IP address is being used.
 
-##### geographic-location
+##### geo-location
 
 Geographic location of users is determined and used.
 This could for example be derived from the request IP, or from using browser APIs.
 
-##### ua-string
+##### user-agent
 
 Information about the utilized User Agent is being collected.
 
@@ -486,7 +486,7 @@ Implements: gdpr
 
 ~~~~~~~~~~
 Author: John Doe <doe@example.com>
-Collects: url, ip-address, geographic-location, ua-string, referrer, device-type, custom-events
+Collects: url, ip-address, geo-location, user-agent, referrer, device-type, custom-events
 Stores: none
 Uses: javascript
 Allows: none
