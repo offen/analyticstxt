@@ -353,7 +353,7 @@ This OPTIONAL, RECOMMENDED multi-value field indicates the coverage in session a
 
 #### Allowed values
 
-##### anonymous
+##### none
 
 Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar. This value MUST NOT be used in conjunction with other values.
 
