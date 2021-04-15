@@ -216,7 +216,7 @@ Collects: url, device-type, referrer
 
 This field is REQUIRED unless the only value of the Collects field as per {{collects-field}} is none.
 The multi-value field indicates whether data is persisted on the client during the collection of analytics data and declares the browser features used for doing so.
-In case no data is being persisted at all, the value none MUST be used.
+In case no data is being persisted at all, the value none MUST be used as the single entry for this field.
 
 #### Allowed values
 
@@ -292,7 +292,7 @@ The multi-value field discloses information about whether user consent is being 
 
 ##### none
 
-The software does not define a way for users to opt in or opt out of the collection of usage data.
+The software does not define a way for users to opt in or opt out of the collection of usage data. This value MUST NOT be used in conjunction with other values.
 
 ##### opt-in
 
@@ -380,7 +380,7 @@ It MUST contain a single value only.
 
 ##### none
 
-All users are served the same content without any changes.
+All users are served the same content without any changes. This value MUST NOT be used in conjunction with other values.
 
 ##### random
 
@@ -426,12 +426,11 @@ Shares: general-public
 
 ### Implements
 
-This OPTIONAL field indicates conformance with certain regulations and legislation.
+This OPTIONAL field indicates conformance with certain regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
 
 Example values are:
 
 - gdpr
-- hiipa
 - ccpa
 
 #### Example
@@ -442,7 +441,7 @@ Implements: gdpr, ccpa
 
 ### Deploys
 
-This OPTIONAL field indicates which software is being used for collecting analytics.
+This OPTIONAL field indicates which software is being used for collecting analytics. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
 
 Example values are:
 
