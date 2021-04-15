@@ -162,6 +162,11 @@ These values MUST also be specified if a property is not persisted as-is, but st
 
 No analytics data is collected at all. This value MUST NOT be used in conjunction with other values.
 
+##### url
+
+The URL of a visit, including its path, is collected and used.
+This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.
+
 ##### ip-address
 
 The request IP address is being used.
@@ -183,11 +188,6 @@ Such mechanisms usually try to compute a unique identifier from properties of th
 ##### device-type
 
 The user's device type (e.g. mobile / tablet / desktop) is being determined and collected.
-
-##### url
-
-The URL of a visit, including its path, is collected and used.
-This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.
 
 ##### referrer
 
