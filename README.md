@@ -6,7 +6,7 @@ This specification is under heavy development. If you have feedback, feel invite
 
 This is the working area for the individual Internet-Draft, "A proposed standard which allows websites and services to disclose information about their usage of analytics software and user tracking.".
 
-* [Editor's Copy](https://offen.github.io/analyticstxt/#go.draft-offen-analyticstxt.html)
+* [Editor's Copy](https://offen.github.io/analyticstxt/#go.draft-ring-analyticstxt.html)
 
 ## Building the Draft
 

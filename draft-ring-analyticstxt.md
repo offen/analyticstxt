@@ -1,7 +1,7 @@
 ---
 title: A File Format for the Discoverable Use of Analytics
 abbrev: analytics.txt
-docname: draft-offen-analyticstxt-latest
+docname: draft-ring-analyticstxt-latest
 category: info
 
 ipr: trust200902
