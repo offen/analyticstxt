@@ -6,7 +6,6 @@ category: info
 
 ipr: trust200902
 area: General
-workgroup: Network Working Group
 keyword: Internet-Draft
 
 stand_alone: yes
