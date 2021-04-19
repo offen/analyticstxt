@@ -53,8 +53,9 @@ informative:
 --- abstract
 
 Internet privacy has become an important feature for users of websites and services.
-This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software to users, and make it discoverable for tooling.
-analytics.txt aims to be an elaborate standard that describes the characteristics of analytics and tracking software in a non-biased way, understandable for a non-technical audience, but also useful for the consumption by tools and software.
+This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software.
+analytics.txt aims to be an elaborate file format that describes the privacy related characteristics of analytics and tracking software in a non-biased way.
+An analytics.txt file is understandable for a non-technical audience, while also useful for the automated consumption by tools and software.
 
 --- middle
 
