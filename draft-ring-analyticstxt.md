@@ -292,7 +292,9 @@ The multi-value field discloses information about whether user consent is being 
 
 ##### none
 
-The software does not define a way for users to opt in or opt out of the collection of usage data. This value MUST NOT be used in conjunction with other values.
+The software does not define a way for users to opt in or opt out of the collection of usage data.
+This value also applies to scenarios where only a subset of data is collected by default and could be extended by opting in.
+This value MUST NOT be used in conjunction with other values.
 
 ##### opt-in
 
@@ -404,7 +406,7 @@ This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared wi
 
 ##### none
 
-The data collected is not shared with any party unless affiliated with implementor.
+The data collected is not shared with any party unless directly affiliated with implementor.
 
 ##### per-user
 
@@ -427,6 +429,7 @@ Shares: general-public
 ### Implements
 
 This OPTIONAL field indicates conformance with certain regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
+This field SHOULD only be added if it makes the setup described by the file easier to understand for human users.
 
 Example values are:
 
@@ -442,6 +445,7 @@ Implements: gdpr, ccpa
 ### Deploys
 
 This OPTIONAL field indicates which software is being used for collecting analytics. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
+This field SHOULD only be added if it makes the setup described by the file easier to understand for human users.
 
 Example values are:
 
@@ -549,6 +553,7 @@ In such cases, implementors MUST add sufficient commentary describing the applic
 
 If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions, thus exposing users to possibly unwanted data collection and handling.
 Not having an "analytics.txt" file may be preferable to having incorrect or stale information in this file.
+This guideline also applies to field level: in case of ambiguities or uncertainties, it's recommended to omit a field or a value rather than providing incorrect information.
 Implementors MUST use the "Author" field (see {{author-field}}) to allow inquiries about the correctness of the given information.
 
 ## Spam
