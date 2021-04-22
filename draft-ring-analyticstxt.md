@@ -62,8 +62,8 @@ An analytics.txt file is understandable for a non-technical audience, while also
 
 ## Motivation
 
-User tracking and the usage of analytics software on websites has become a widely employed routine, visibly and invisibly affecting the way the user facing internet works and behaves.
-Yet, there is no well-defined way of accessing information about what software is being used and what data it is collecting in a standardized way.
+User tracking and the utilization of analytics software on websites has become a widely employed routine, visibly and invisibly affecting the way the user facing internet works and behaves.
+Yet, there is no well-defined way of accessing information about what software is being used and what kind of data it is collecting in a standardized way.
 Legislation can only ever cover a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus allowing them to hide their presence from users.
 Automated audits are limited to aspects that are possible to detect in clients, but cannot disclose other important implementation details.
 
@@ -71,7 +71,7 @@ Automated audits are limited to aspects that are possible to detect in clients, 
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
 We aim for this information to be consumable both by humans as well as software.
-For example, search engines or browser extensions could make use of this data and display information to users.
+For example, search engines or browser extensions could make use of the provided data and display information to users, but it should also be simple enough to serve as information for inquiring users as is.
 
 The file "analytics.txt" is not intended to replace the requirement for complying with existing regulations, but supposed to give insights beyond the scope of these regulations.
 
@@ -83,10 +83,7 @@ Analytics or user tracking as referred to in this document does not refer to the
 
 # Conventions and Definitions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 The term "implementors" refers to the providers of services and websites that wish to use an analytics.txt file.
 
@@ -94,22 +91,21 @@ The term "implementors" refers to the providers of services and websites that wi
 
 This document defines a text file format that can be used by implementors to signal information about their usage of analytics software to both users and software.
 
-By convention, this file is called analytics.txt.
+By convention, this file is called "analytics.txt".
 Its location and scope are described in {{location}}.
 
 This text file contains multiple fields with different values.
-A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Author:") and follows the syntax
-defined for "field-name" in section 3.6.8 of {{?RFC5322}}.
+A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Author:") and follows the syntax defined for "field-name" in section 3.6.8 of {{?RFC5322}}.
 Field names are case-insensitive (as per section 2.3 of {{?RFC5234}}).
 The "value" comes after the field name and follows the syntax defined for "unstructured" in section 3.2.5 of {{?RFC5322}}.
-The file MAY also contain blank lines.
+The file MAY also contain blank lines and comments.
 
 A field MUST always consist of a name and a value (for example: "Author: Jane Doe <jane.doe@example.com>").
 Each field MUST appear on its own line.
-Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Compliance: gdpr, ccpa") using the "," character (%x2c).
-Unless otherwise indicated in a definition of a particular field, a field MAY NOT appear multiple times.
+Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Implements: gdpr, ccpa") using the "," character (%x2c).
+A field MAY NOT appear multiple times.
 
-Implementors SHOULD aim for creating an analytics.txt file that is easy to understand by non-technical audiences.
+Implementors SHOULD aim for authoring an analytics.txt file that is easy to understand by non-technical audiences.
 
 ## Comments
 
@@ -119,7 +115,7 @@ The content of the comment may contain any ASCII or Unicode characters in the %x
 Example:
 
 ~~~~~~~~~~
-# A comment
+# This is a comment
 ~~~~~~~~~~
 
 Implementors SHOULD make deliberate use of comments to make an analytics.txt file more accessible for non-technical audiences.
@@ -138,7 +134,7 @@ Special attention is required for defining the allowed values in enumerations to
 Field names are case-insensitive, yet implementors SHOULD use the capitalized style used in this document for consistency.
 
 Field values are case-insensitive.
-Unless otherwise specified, implementors MUST refer to the allowed values given by the specification.
+Unless otherwise specified, implementors MUST refer to the allowed values for a field given by the specification.
 
 ### Author {#author-field}
 
@@ -222,7 +218,8 @@ In case no data is being persisted at all, the value none MUST be used as the si
 
 ##### none
 
-No data is persisted on the client during the collection of usage data. This value MUST NOT be used in conjunction with other values.
+No data is persisted on the client during the collection of usage data.
+This value MUST NOT be used in conjunction with other values.
 
 ##### first-party-cookies
 
@@ -333,7 +330,8 @@ This OPTIONAL, RECOMMENDED multi-value field indicates which browser level priva
 
 ##### none
 
-Data is collected no matter the browser settings in use. This value MUST NOT be used in conjunction with other values.
+Data is collected even if any of the browser settings listed below are in use.
+This value MUST NOT be used in conjunction with other values.
 
 ##### do-not-track
 
@@ -357,7 +355,9 @@ This OPTIONAL, RECOMMENDED multi-value field indicates the coverage in session a
 
 ##### none
 
-Each event that is collected is anonymous. There is no way to connect and group multiple pageviews by user or similar. This value MUST NOT be used in conjunction with other values.
+Each event that is collected is anonymous.
+There is no way to connect and group multiple pageviews by user or similar.
+This value MUST NOT be used in conjunction with other values.
 
 ##### sessions
 
@@ -382,7 +382,8 @@ It MUST contain a single value only.
 
 ##### none
 
-All users are served the same content without any changes. This value MUST NOT be used in conjunction with other values.
+All users are served the same content without any changes.
+This value MUST NOT be used in conjunction with other values.
 
 ##### random
 
@@ -418,7 +419,8 @@ Usage statistics for the site or service are available to the general public.
 
 ##### third-party
 
-Data is being shared non-publicly with third parties. This MUST also be specified when datasets are aggregated or pseudonymized beforehand.
+Data is being shared non-publicly with third parties.
+This MUST also be specified when datasets are aggregated or pseudonymized beforehand.
 
 #### Example
 
