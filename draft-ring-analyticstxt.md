@@ -244,7 +244,7 @@ This value is not required in case the analytics software sends static resources
 #### Example
 
 ~~~~~~~~~~
-Stores: 1st-party-cookies, local-storage
+Stores: first-party-cookies, local-storage
 ~~~~~~~~~~
 
 ### Uses
@@ -407,7 +407,7 @@ This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared wi
 
 ##### none
 
-The data collected is not shared with any party unless directly affiliated with implementor.
+The data collected is not shared with any party unless directly affiliated with the implementor, e.g. employees.
 
 ##### per-user
 
@@ -430,7 +430,7 @@ Shares: general-public
 
 ### Implements
 
-This OPTIONAL field indicates conformance with certain regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
+This OPTIONAL field indicates conformance with existing regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
 This field SHOULD only be added if it makes the setup described by the file easier to understand for human users.
 
 Example values are:
