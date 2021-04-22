@@ -524,7 +524,7 @@ Example:
 
 ### HTTP Header
 
-In addition to that implementors MAY send an HTTP header of `X-Analytics-Txt` with a response, sending the URI of the applicable file.
+Implementors MAY send an HTTP header of `X-Analytics-Txt` with a response, sending the URI of the applicable file.
 
 Example:
 
@@ -542,7 +542,8 @@ In case multiple of these signals are being used, the precedence taken is:
 
 ## Scope of a file
 
-An analytics.txt file MUST only apply to the domain or IP address of the URI used to retrieve it, and SHALL NOT apply to any of its subdomains or parent domains.
+An analytics.txt file located in the ".well-known" location MUST only apply to the domain or IP address of the URI used to retrieve it, and SHALL NOT apply to any of its subdomains or parent domains.
+If the location is signaled using the HTTP Header or in the document markup itself, its scope SHALL be limited to the requested resource only.
 
 If distributed in non-standard locations, an analytics.txt file MAY also apply to products and services provided by the organization publishing the file (e.g. desktop or mobile applications) and which cannot be mapped to a domain name or IP address.
 In such cases, implementors MUST add sufficient commentary describing the applicable scope.
