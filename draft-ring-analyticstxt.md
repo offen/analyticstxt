@@ -565,7 +565,7 @@ Implementors should be aware that disclosing mandatory author information as per
 
 ## Multi-user environments
 
-In multi-user / multi-tenant environments, it may possible for a single user to take over the location of the "/.well-known/security.txt" file which would also apply to others.
+In multi-user / multi-tenant environments, it may possible for a single user to take over the location of the "/.well-known/analytics.txt" file which would also apply to others.
 Organizations should ensure the ".well-known" location is properly protected. Implementors can instead use other locations as per {{location}} in such scenarios.
 
 # IANA Considerations
