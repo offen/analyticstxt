@@ -138,7 +138,7 @@ Unless otherwise specified, implementors MUST refer to the allowed values for a 
 
 ### Author {#author-field}
 
-This REQUIRED field holds an OPTIONAL author name and a REQUIRED email address providing information about a person or entity responsible for maintaining the contents of the file.
+This REQUIRED field holds an OPTIONAL display name and a REQUIRED email address ("name-addr") as per section 3.4 of {{!RFC5322}} providing information about a person or entity responsible for maintaining the contents of the file.
 The field MUST contain a valid email address which shall be used for inquiries about the correctness and additions to the data provided in the file.
 
 #### Example
