@@ -311,7 +311,7 @@ Allows: opt-out
 ### Retains
 
 This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
-The single-value field indicates the duration for which the analytics data is being stored before being deleted.
+The single-value field indicates the duration for which the analytics data is being stored before being deleted. This duration MUST also cover periods where data might transition to be stored in aggregated form only.
 The value is either a duration as defined in {{!RFC3339}} or the token "perpetual" in case data is retained without expiring it at some point.
 Implementors SHOULD add a comment providing a human readable value to this field.
 
@@ -388,6 +388,10 @@ This value MUST NOT be used in conjunction with other values.
 ##### random
 
 Content experiments are performed by grouping users randomly into buckets and serving them different content.
+
+##### geographic
+
+Content experiments are performed by targeting user based on their geographic location.
 
 ##### behavioral
 
