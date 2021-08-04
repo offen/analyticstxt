@@ -163,6 +163,10 @@ No analytics data is collected at all. This value MUST NOT be used in conjunctio
 The URL of a visit, including its path, is collected and used.
 This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.
 
+##### time
+
+The time of visit is collected.
+
 ##### ip-address
 
 The request IP address is being used.
