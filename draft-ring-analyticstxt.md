@@ -317,14 +317,14 @@ Allows: opt-out
 
 This field is REQUIRED unless the only value of the Collects field {{collects-field}} is none.
 The single-value field indicates the duration for which the analytics data is being stored before being deleted. This duration MUST also cover periods where data might transition to be stored in aggregated form only.
-The value is either a duration as defined in {{!RFC3339}} or the token "perpetual" in case data is retained without expiring it at some point.
-Implementors SHOULD add a comment providing a human readable value to this field.
+The value is either a duration in days (including the days suffix), or the token "perpetual" in case data is retained without expiring it at some point.
+A day is defined as 24 hours.
+In case the retention period does not divide evenly into days, it MUST be brought up to the next round figure.
 
 #### Example
 
 ~~~~~~~~~~
-# Data is retained for twelve months
-Retains: P12M
+Retains: 365 days
 ~~~~~~~~~~
 
 ### Honors
@@ -485,8 +485,7 @@ Stores: first-party-cookies, local-storage
 Uses: javascript
 # Users can also delete their usage data only without opting out
 Allows: opt-in, opt-out
-# Data is retained for 6 months
-Retains: P6M
+Retains: 186 days
 
 # Optional fields
 Honors: none
