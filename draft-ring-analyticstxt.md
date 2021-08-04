@@ -184,6 +184,7 @@ Such mechanisms usually try to compute a unique identifier from properties of th
 ##### device-type
 
 The user's device type (e.g. mobile / tablet / desktop) is being determined and collected.
+The categories and rules for this distinction might be different for different software solutions.
 
 ##### referrer
 
@@ -264,7 +265,7 @@ A static resource - typically a pixel - transferred via HTTP is being used to co
 
 ##### server-side
 
-Collection of usage data is happening on the server side at application layer.
+Collection of usage data is happening on the server side at the application layer.
 
 ##### logs
 
@@ -512,7 +513,7 @@ Collects: none
 
 # Location of the analytics.txt file {#location}
 
-By default, an analytics.txt file SHOULD be placed in the ".well-known" path as per {{!RFC8615}} of a domain name or IP address.
+By default, an analytics.txt file SHOULD be placed in the ".well-known" location as per {{!RFC8615}} of a domain name or IP address.
 
 ## Alternatives
 
