@@ -79,7 +79,7 @@ The file "analytics.txt" is not intended to replace the requirement for complyin
 
 Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help the providers of websites and services to better understand and optimize their services towards real world user behavior.
 This can also include measuring different content against different groups of users.
-Analytics or user tracking as referred to in this document does not refer to the identification of users in order to deliver customized advertising or content across websites of any kind.
+Analytics or user tracking as referred to in this document does not refer to the identification of users with the sole objective of delivering customized advertising or content across websites of any kind.
 
 # Conventions and Definitions
 
@@ -151,6 +151,7 @@ Author: Jane Doe <jane.doe@example.com>
 
 This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification or other procedures.
 These values MUST also be specified if a property is not persisted as-is, but stored or processed in a hashed and/or combined form.
+Some of the allowed values overlap to a certain extent, e.g. a User Agent string might be used in a Browser Fingerprint.
 
 #### Allowed values
 
@@ -242,9 +243,9 @@ Data is persisted on the client using non-cookie JavaScript APIs like `localStor
 
 ##### cache
 
-The analytics software leverages browser caches to store identifiers.
+The analytics software leverages browser cache mechanisms to store identifiers.
 For example, ETag headers can be used to identify users based on their browser caches' contents.
-This value is not required in case the analytics software sends static resources with cache headers, but does not make use of the request headers on subsequent requests.
+This value is not required in case the analytics software sends static resources with cache headers, but does not make use of the request headers on subsequent requests for purposes other than managing caching of assets.
 
 #### Example
 
@@ -440,7 +441,6 @@ Shares: general-public
 ### Implements
 
 This OPTIONAL field indicates conformance with existing regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
-This field SHOULD only be added if it makes the setup described by the file easier to understand for human users.
 
 Example values are:
 
@@ -456,7 +456,6 @@ Implements: gdpr, ccpa
 ### Deploys
 
 This OPTIONAL field indicates which software is being used for collecting analytics. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).
-This field SHOULD only be added if it makes the setup described by the file easier to understand for human users.
 
 Example values are:
 
