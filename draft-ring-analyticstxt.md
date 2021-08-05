@@ -71,9 +71,13 @@ Automated audits are limited to aspects that are possible to detect in clients, 
 
 This document defines a way to specify the privacy related characteristics of analytics and tracking software.
 We aim for this information to be consumable both by humans as well as software.
-For example, search engines or browser extensions could make use of the provided data and display information to users, but it should also be simple enough to serve as information for inquiring users as is.
 
 The file "analytics.txt" is not intended to replace the requirement for complying with existing regulations, but supposed to give insights beyond the scope of these regulations.
+
+### About providing a human readable format
+
+A fundamental design goal of the "analytics.txt" format is to make such a file human readable.
+While the percentage of consumers that are actually human beings will likely be low - browser extensions or search engines would be good examples of possible consumers - this tenet can drive the specification into a direction where the format will focus on providing information that is useful for human beings, even when captured and processed further by other software.
 
 ## Definition of the term "analytics" in the scope of this document
 
