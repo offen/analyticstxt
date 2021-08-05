@@ -85,6 +85,22 @@ Analytics as referred to in this document involves the collection of usage stati
 This can also include measuring different content against different groups of users.
 Analytics or user tracking as referred to in this document does not refer to the identification of users with the sole objective of delivering customized advertising or content across websites of any kind.
 
+## Verifying the provided information
+
+"analytics.txt" is designed to provide insights beyond what is technically auditable from a client perspective.
+While some characteristics could be determined automatically or manually at client level, others won't, and will rely on implementors providing correct information about what is happening at layers that are opaque to users.
+This means consumers of an "analytics.txt" file will implictly need to trust the implementor to provide correct information, implicating two design goals for the format (technical implications are discussed in {{incorrect-information}}).
+
+### Non-biased
+
+All of the given datapoints are purely informational, there is no right or wrong option to choose from, and the format will never provide guidelines on how to assess or rate an "analytics.txt" file.
+Based on this, implementors shouldn't have strong incentives for providing incorrect information, but adopt the implementation because they are wishing to disclose information about their site that they otherwise couldn't.
+
+### Non-canonical
+
+An "analytics.txt" file should never be the canonical source of truth for making automated decisions or ratings about a site.
+It is supposed to be one of multiple signals that can be used for assessing the behavior of a website, creating the possibility to connect and compare the provided data with what has been surveyed using other channels of information.
+
 # Conventions and Definitions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -563,7 +579,7 @@ In such cases, implementors MUST add sufficient commentary describing the applic
 
 # Security Considerations
 
-## Incorrect or stale information
+## Incorrect or stale information {#incorrect-information}
 
 If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions, thus exposing users to possibly unwanted data collection and handling.
 Not having an "analytics.txt" file may be preferable to having incorrect or stale information in this file.
