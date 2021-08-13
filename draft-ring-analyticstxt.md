@@ -83,7 +83,6 @@ While the percentage of consumers that are actually human beings will likely be 
 
 Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help the providers of websites and services to better understand and optimize their services towards real world user behavior.
 This can also include measuring different content against different groups of users.
-Analytics or user tracking as referred to in this document does not refer to the identification of users with the sole objective of delivering customized advertising or content across websites of any kind.
 
 ## Verifying the provided information
 
@@ -94,7 +93,7 @@ This means consumers of an "analytics.txt" file will implictly need to trust the
 ### Non-biased
 
 All of the given datapoints are purely informational, there is no right or wrong option to choose from, and the format will never provide guidelines on how to assess or rate an "analytics.txt" file.
-Based on this, implementors shouldn't have strong incentives for providing incorrect information, but adopt the implementation because they are wishing to disclose information about their site that they otherwise couldn't.
+Based on this, implementors don't have strong incentives for providing incorrect information, but choose implementation because they are wishing to disclose information about their site that they otherwise couldn't.
 
 ### Non-canonical
 
