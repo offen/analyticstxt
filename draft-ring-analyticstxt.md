@@ -607,3 +607,7 @@ Specification document(s): this document
 Status: permanent
 
 --- back
+
+# Acknowledgments
+
+The authors would like to acknowledge the feedback and input provided during the creation of this document as given by Michiel Leenaars, Cyrill Krähenbühl, Lasse Voss.
