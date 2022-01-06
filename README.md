@@ -1,3 +1,7 @@
+<a href="https://www.offen.dev/">
+    <img src="https://offen.github.io/press-kit/offen-material/gfx-GitHub-Offen-logo.svg" alt="Offen logo" title="Offen" width="150px"/>
+</a>
+
 # analytics.txt
 
 This specification is under heavy development. If you have feedback, feel invited to open an issue, but please consider this draft incomplete until we remove this section.
