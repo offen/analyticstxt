@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>A File Format for the Discoverable Use of Analytics</title>
+<meta content="Frederik Ring" name="author">
+<meta content="Hendrik Niefeld" name="author">
+<meta content="
+       Internet privacy has become an important feature for users of websites and services.
+This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software.
+analytics.txt aims to be an elaborate file format that describes the privacy related characteristics of analytics and tracking software in a non-biased way.
+An analytics.txt file is understandable for a non-technical audience, while also useful for the automated consumption by tools and software. 
+    " name="description">
+<meta content="xml2rfc 3.12.0" name="generator">
+<meta content="Internet-Draft" name="keyword">
+<meta content="draft-ring-analyticstxt-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.12.0
+    Python 3.9.7
+    appdirs 1.4.4
+    ConfigArgParse 1.3
+    google-i18n-address 2.5.0
+    html5lib 1.1
+    intervaltree 3.1.0
+    Jinja2 2.11.3
+    kitchen 1.2.6
+    lxml 4.6.5
+    pycountry 20.7.3
+    pyflakes 2.3.1
+    PyYAML 5.4.1
+    requests 2.26.0
+    setuptools 52.0.0
+    six 1.16.0
+-->
+<link href="draft-ring-analyticstxt.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@import url('https://martinthomson.github.io/i-d-template/fonts.css');
+
+html {
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  scrollbar-color: #bbb #eee;
+}
+@media (prefers-color-scheme: dark) {
+html {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabin Condensed", sans-serif;
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+#title {
+  padding: 1em 0 0.2em;
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p, #abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 18px;
+  line-height: 24px;
+}
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+dd.break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href].selfRef {
+  color: var(--text-color);
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px 'Oxygen Mono', monospace;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  pre {
+    display: inline-block;
+    overflow-x: auto;
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  pre + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+tr:nth-child(2n) > td {
+  background-color: var(--background-color);
+}
+tr:nth-child(2n+1) > td {
+  background-color: var(--highlight-color);
+}
+thead+tbody > tr:nth-child(2n) > td {
+  background-color: var(--highlight-color);
+}
+thead+tbody > tr:nth-child(2n+1) > td {
+  background-color: var(--background-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+}
+a.pilcrow[href] { color: var(--pilcrow-weak); }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 8em;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  margin: 0;
+  clear: left;
+  float: left;
+  text-align: right;
+}
+#identifiers dd {
+  margin: 0 0 0 calc(1em + var(--identifier-width));
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 500px) {
+  .index ul {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  .index ul ul {
+    column-count: 1;
+    column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul p, #toc ul li {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left, table .text-left {
+  text-align: left;
+}
+table .text-center, table .text-center {
+  text-align: center;
+}
+table .text-right, table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  dd {
+    page-break-before: avoid;
+  }
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+</style>
+
+</head>
+<body>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">analytics.txt</td>
+<td class="right">January 2022</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Ring &amp; Niefeld</td>
+<td class="center">Expires 31 July 2022</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ring-analyticstxt-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2022-01-27" class="published">27 January 2022</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2022-07-31">31 July 2022</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">F. Ring</div>
+<div class="org">Offen</div>
+</div>
+<div class="author">
+      <div class="author-name">H. Niefeld</div>
+<div class="org">Offen</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">A File Format for the Discoverable Use of Analytics</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">Internet privacy has become an important feature for users of websites and services.
+This document proposes a way for websites and services to declare and disclose their usage of analytics and tracking software.
+analytics.txt aims to be an elaborate file format that describes the privacy related characteristics of analytics and tracking software in a non-biased way.
+An analytics.txt file is understandable for a non-technical audience, while also useful for the automated consumption by tools and software.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Source for this draft and an issue tracker can be found at
+  <span><a href="https://github.com/offen/analyticstxt">https://github.com/offen/analyticstxt</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 31 July 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2022 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-motivation" class="xref">Motivation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-scope-of-this-proposal" class="xref">Scope of this proposal</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.1">
+                    <p id="section-toc.1-1.1.2.2.2.1.1" class="keepWithNext"><a href="#section-1.2.1" class="xref">1.2.1</a>.  <a href="#name-about-providing-a-human-rea" class="xref">About providing a human readable format</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
+                <p id="section-toc.1-1.1.2.3.1"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-definition-of-the-term-anal" class="xref">Definition of the term "analytics" in the scope of this document</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-verifying-the-provided-info" class="xref">Verifying the provided information</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4.2.1">
+                    <p id="section-toc.1-1.1.2.4.2.1.1"><a href="#section-1.4.1" class="xref">1.4.1</a>.  <a href="#name-non-biased" class="xref">Non-biased</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4.2.2">
+                    <p id="section-toc.1-1.1.2.4.2.2.1"><a href="#section-1.4.2" class="xref">1.4.2</a>.  <a href="#name-non-canonical" class="xref">Non-canonical</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-conventions-and-definitions" class="xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-specification" class="xref">Specification</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-comments" class="xref">Comments</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-line-separators" class="xref">Line Separators</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-extensibility" class="xref">Extensibility</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-field-definitions" class="xref">Field Definitions</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
+                    <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="xref">3.4.1</a>.  <a href="#name-author" class="xref">Author</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
+                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="xref">3.4.2</a>.  <a href="#name-collects" class="xref">Collects</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.3">
+                    <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="xref">3.4.3</a>.  <a href="#name-stores" class="xref">Stores</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.4">
+                    <p id="section-toc.1-1.3.2.4.2.4.1"><a href="#section-3.4.4" class="xref">3.4.4</a>.  <a href="#name-uses" class="xref">Uses</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.5">
+                    <p id="section-toc.1-1.3.2.4.2.5.1"><a href="#section-3.4.5" class="xref">3.4.5</a>.  <a href="#name-allows" class="xref">Allows</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.6">
+                    <p id="section-toc.1-1.3.2.4.2.6.1"><a href="#section-3.4.6" class="xref">3.4.6</a>.  <a href="#name-retains" class="xref">Retains</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.7">
+                    <p id="section-toc.1-1.3.2.4.2.7.1"><a href="#section-3.4.7" class="xref">3.4.7</a>.  <a href="#name-honors" class="xref">Honors</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.8">
+                    <p id="section-toc.1-1.3.2.4.2.8.1"><a href="#section-3.4.8" class="xref">3.4.8</a>.  <a href="#name-tracks" class="xref">Tracks</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.9">
+                    <p id="section-toc.1-1.3.2.4.2.9.1"><a href="#section-3.4.9" class="xref">3.4.9</a>.  <a href="#name-varies" class="xref">Varies</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.10">
+                    <p id="section-toc.1-1.3.2.4.2.10.1"><a href="#section-3.4.10" class="xref">3.4.10</a>. <a href="#name-shares" class="xref">Shares</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.11">
+                    <p id="section-toc.1-1.3.2.4.2.11.1"><a href="#section-3.4.11" class="xref">3.4.11</a>. <a href="#name-implements" class="xref">Implements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.12">
+                    <p id="section-toc.1-1.3.2.4.2.12.1"><a href="#section-3.4.12" class="xref">3.4.12</a>. <a href="#name-deploys" class="xref">Deploys</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-examples-of-analyticstxt-fi" class="xref">Examples of analytics.txt files</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
+                    <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="xref">3.5.1</a>.  <a href="#name-a-site-using-analytics" class="xref">A site using analytics</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
+                    <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="xref">3.5.2</a>.  <a href="#name-specifying-required-fields-" class="xref">Specifying required fields only</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.3">
+                    <p id="section-toc.1-1.3.2.5.2.3.1"><a href="#section-3.5.3" class="xref">3.5.3</a>.  <a href="#name-a-site-not-using-any-analyt" class="xref">A site not using any analytics</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-location-of-the-analyticstx" class="xref">Location of the analytics.txt file</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-alternatives" class="xref">Alternatives</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.1">
+                    <p id="section-toc.1-1.4.2.1.2.1.1"><a href="#section-4.1.1" class="xref">4.1.1</a>.  <a href="#name-link-tag" class="xref">link Tag</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.2">
+                    <p id="section-toc.1-1.4.2.1.2.2.1"><a href="#section-4.1.2" class="xref">4.1.2</a>.  <a href="#name-http-header" class="xref">HTTP Header</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-precedence" class="xref">Precedence</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-scope-of-a-file" class="xref">Scope of a file</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-incorrect-or-stale-informat" class="xref">Incorrect or stale information</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-spam" class="xref">Spam</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-multi-user-environments" class="xref">Multi-user environments</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-well-known-uris-registry" class="xref">Well-Known URIs registry</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-references" class="xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="xref">Appendix A</a>.  <a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<div id="motivation">
+<section id="section-1.1">
+        <h3 id="name-motivation">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
+        </h3>
+<p id="section-1.1-1">User tracking and the utilization of analytics software on websites has become a widely employed routine, visibly and invisibly affecting the way the user facing internet works and behaves.
+Yet, there is no well-defined way of accessing information about what software is being used and what kind of data it is collecting in a standardized way.
+Legislation can only ever cover a subset of the range of existing technological implementations, creating incentives for software to find workarounds, thus allowing them to hide their presence from users.
+Automated audits are limited to aspects that are possible to detect in clients, but cannot disclose other important implementation details.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="scope-of-this-proposal">
+<section id="section-1.2">
+        <h3 id="name-scope-of-this-proposal">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-scope-of-this-proposal" class="section-name selfRef">Scope of this proposal</a>
+        </h3>
+<p id="section-1.2-1">This document defines a way to specify the privacy related characteristics of analytics and tracking software.
+We aim for this information to be consumable both by humans as well as software.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The file "analytics.txt" is not intended to replace the requirement for complying with existing regulations, but supposed to give insights beyond the scope of these regulations.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<div id="about-providing-a-human-readable-format">
+<section id="section-1.2.1">
+          <h4 id="name-about-providing-a-human-rea">
+<a href="#section-1.2.1" class="section-number selfRef">1.2.1. </a><a href="#name-about-providing-a-human-rea" class="section-name selfRef">About providing a human readable format</a>
+          </h4>
+<p id="section-1.2.1-1">A fundamental design goal of the "analytics.txt" format is to make such a file human readable.
+While the percentage of consumers that are actually human beings will likely be low - browser extensions or search engines would be good examples of possible consumers - this tenet can drive the specification into a direction where the format will focus on providing information that is useful for human beings, even when captured and processed further by other software.<a href="#section-1.2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="definition-of-the-term-analytics-in-the-scope-of-this-document">
+<section id="section-1.3">
+        <h3 id="name-definition-of-the-term-anal">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-definition-of-the-term-anal" class="section-name selfRef">Definition of the term "analytics" in the scope of this document</a>
+        </h3>
+<p id="section-1.3-1">Analytics as referred to in this document involves the collection of usage statistics in order to generate reports that can help the providers of websites and services to better understand and optimize their services towards real world user behavior.
+This can also include measuring different content against different groups of users.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="verifying-the-provided-information">
+<section id="section-1.4">
+        <h3 id="name-verifying-the-provided-info">
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-verifying-the-provided-info" class="section-name selfRef">Verifying the provided information</a>
+        </h3>
+<p id="section-1.4-1">"analytics.txt" is designed to provide insights beyond what is technically auditable from a client perspective.
+While some characteristics could be determined automatically or manually at client level, others won't, and will rely on implementors providing correct information about what is happening at layers that are opaque to users.
+This means consumers of an "analytics.txt" file will implictly need to trust the implementor to provide correct information, implicating two design goals for the format (technical implications are discussed in <a href="#incorrect-information" class="xref">Section 5.1</a>).<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<div id="non-biased">
+<section id="section-1.4.1">
+          <h4 id="name-non-biased">
+<a href="#section-1.4.1" class="section-number selfRef">1.4.1. </a><a href="#name-non-biased" class="section-name selfRef">Non-biased</a>
+          </h4>
+<p id="section-1.4.1-1">All of the given datapoints are purely informational, there is no right or wrong option to choose from, and the format will never provide guidelines on how to assess or rate an "analytics.txt" file.
+Based on this, implementors don't have strong incentives for providing incorrect information, but choose implementation because they are wishing to disclose information about their site that they otherwise couldn't.<a href="#section-1.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="non-canonical">
+<section id="section-1.4.2">
+          <h4 id="name-non-canonical">
+<a href="#section-1.4.2" class="section-number selfRef">1.4.2. </a><a href="#name-non-canonical" class="section-name selfRef">Non-canonical</a>
+          </h4>
+<p id="section-1.4.2-1">An "analytics.txt" file should never be the canonical source of truth for making automated decisions or ratings about a site.
+It is supposed to be one of multiple signals that can be used for assessing the behavior of a website, creating the possibility to connect and compare the provided data with what has been surveyed using other channels of information.<a href="#section-1.4.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-2">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">The term "implementors" refers to the providers of services and websites that wish to use an analytics.txt file.<a href="#section-2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="specification">
+<section id="section-3">
+      <h2 id="name-specification">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-specification" class="section-name selfRef">Specification</a>
+      </h2>
+<p id="section-3-1">This document defines a text file format that can be used by implementors to signal information about their usage of analytics software to both users and software.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">By convention, this file is called "analytics.txt".
+Its location and scope are described in <a href="#location" class="xref">Section 4</a>.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">This text file contains multiple fields with different values.
+A field contains a "name" which is the first part of a field all the way up to the colon (for example: "Author:") and follows the syntax defined for "field-name" in section 3.6.8 of <span>[<a href="#RFC5322" class="xref">RFC5322</a>]</span>.
+Field names are case-insensitive (as per section 2.3 of <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span>).
+The "value" comes after the field name and follows the syntax defined for "unstructured" in section 3.2.5 of <span>[<a href="#RFC5322" class="xref">RFC5322</a>]</span>.
+The file MAY also contain blank lines and comments.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">A field MUST always consist of a name and a value (for example: "Author: Jane Doe <a href="mailto:jane.doe@example.com">jane.doe@example.com</a>").
+Each field MUST appear on its own line.
+Unless specified otherwise by the field definition, multiple values MUST be chained together for a single field (for example: "Implements: gdpr, ccpa") using the "," character (%x2c).
+A field MAY NOT appear multiple times.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">Implementors SHOULD aim for authoring an analytics.txt file that is easy to understand by non-technical audiences.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<div id="comments">
+<section id="section-3.1">
+        <h3 id="name-comments">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-comments" class="section-name selfRef">Comments</a>
+        </h3>
+<p id="section-3.1-1">Any line beginning with the "#" (%x23) symbol MUST be interpreted as a comment.
+The content of the comment may contain any ASCII or Unicode characters in the %x21-7E and %x80-FFFFF ranges plus the tab (%x09) and space (%x20) characters.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">Example:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-3">
+<pre>
+# This is a comment
+</pre><a href="#section-3.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.1-4">Implementors SHOULD make deliberate use of comments to make an analytics.txt file more accessible for non-technical audiences.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="line-separators">
+<section id="section-3.2">
+        <h3 id="name-line-separators">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-line-separators" class="section-name selfRef">Line Separators</a>
+        </h3>
+<p id="section-3.2-1">Every line MUST end either with a carriage return and line feed characters (CRLF / %x0D %x0A) or just a line feed character (LF / %x0A).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="extensibility">
+<section id="section-3.3">
+        <h3 id="name-extensibility">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-extensibility" class="section-name selfRef">Extensibility</a>
+        </h3>
+<p id="section-3.3-1">Like many other formats and protocols, this format may need to be extended over time to fit the ever-changing landscape of the Internet.
+Special attention is required for defining the allowed values in enumerations to ensure they are a. extendable and b. do not become obsolete too quickly.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="field-definitions">
+<section id="section-3.4">
+        <h3 id="name-field-definitions">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-field-definitions" class="section-name selfRef">Field Definitions</a>
+        </h3>
+<p id="section-3.4-1">Field names are case-insensitive, yet implementors SHOULD use the capitalized style used in this document for consistency.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">Field values are case-insensitive.
+Unless otherwise specified, implementors MUST refer to the allowed values for a field given by the specification.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<div id="author-field">
+<section id="section-3.4.1">
+          <h4 id="name-author">
+<a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-author" class="section-name selfRef">Author</a>
+          </h4>
+<p id="section-3.4.1-1">This REQUIRED field holds an OPTIONAL display name and a REQUIRED email address ("name-addr") as per section 3.4 of <span>[<a href="#RFC5322" class="xref">RFC5322</a>]</span> providing information about a person or entity responsible for maintaining the contents of the file.
+The field MUST contain a valid email address which shall be used for inquiries about the correctness and additions to the data provided in the file.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
+<div id="example">
+<section id="section-3.4.1.1">
+            <h5 id="name-example">
+<a href="#section-3.4.1.1" class="section-number selfRef">3.4.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.1.1-1">
+<pre>
+Author: Jane Doe &lt;jane.doe@example.com&gt;
+</pre><a href="#section-3.4.1.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="collects-field">
+<section id="section-3.4.2">
+          <h4 id="name-collects">
+<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-collects" class="section-name selfRef">Collects</a>
+          </h4>
+<p id="section-3.4.2-1">This REQUIRED multi-value field indicates which potentially privacy relevant user specific data is being collected or used in session identification or other procedures.
+These values MUST also be specified if a property is not persisted as-is, but stored or processed in a hashed and/or combined form.
+Some of the allowed values overlap to a certain extent, e.g. a User Agent string might be used in a Browser Fingerprint.<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
+<div id="allowed-values">
+<section id="section-3.4.2.1">
+            <h5 id="name-allowed-values">
+<a href="#section-3.4.2.1" class="section-number selfRef">3.4.2.1. </a><a href="#name-allowed-values" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none">
+<section id="section-3.4.2.1.1">
+              <h6 id="name-none">
+<a href="#section-3.4.2.1.1" class="section-number selfRef">3.4.2.1.1. </a><a href="#name-none" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.2.1.1-1">No analytics data is collected at all. This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.2.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="url">
+<section id="section-3.4.2.1.2">
+              <h6 id="name-url">
+<a href="#section-3.4.2.1.2" class="section-number selfRef">3.4.2.1.2. </a><a href="#name-url" class="section-name selfRef">url</a>
+              </h6>
+<p id="section-3.4.2.1.2-1">The URL of a visit, including its path, is collected and used.
+This MUST also be specified in case URLs are stripped of certain parameters or pseudonymized before being stored.<a href="#section-3.4.2.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="time">
+<section id="section-3.4.2.1.3">
+              <h6 id="name-time">
+<a href="#section-3.4.2.1.3" class="section-number selfRef">3.4.2.1.3. </a><a href="#name-time" class="section-name selfRef">time</a>
+              </h6>
+<p id="section-3.4.2.1.3-1">The time of visit is collected.<a href="#section-3.4.2.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="ip-address">
+<section id="section-3.4.2.1.4">
+              <h6 id="name-ip-address">
+<a href="#section-3.4.2.1.4" class="section-number selfRef">3.4.2.1.4. </a><a href="#name-ip-address" class="section-name selfRef">ip-address</a>
+              </h6>
+<p id="section-3.4.2.1.4-1">The request IP address is being used.<a href="#section-3.4.2.1.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="geo-location">
+<section id="section-3.4.2.1.5">
+              <h6 id="name-geo-location">
+<a href="#section-3.4.2.1.5" class="section-number selfRef">3.4.2.1.5. </a><a href="#name-geo-location" class="section-name selfRef">geo-location</a>
+              </h6>
+<p id="section-3.4.2.1.5-1">Geographic location of users is determined and used.
+This could for example be derived from the request IP, or from using browser APIs.<a href="#section-3.4.2.1.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="user-agent">
+<section id="section-3.4.2.1.6">
+              <h6 id="name-user-agent">
+<a href="#section-3.4.2.1.6" class="section-number selfRef">3.4.2.1.6. </a><a href="#name-user-agent" class="section-name selfRef">user-agent</a>
+              </h6>
+<p id="section-3.4.2.1.6-1">Information about the utilized User Agent is being collected.<a href="#section-3.4.2.1.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="fingerprint">
+<section id="section-3.4.2.1.7">
+              <h6 id="name-fingerprint">
+<a href="#section-3.4.2.1.7" class="section-number selfRef">3.4.2.1.7. </a><a href="#name-fingerprint" class="section-name selfRef">fingerprint</a>
+              </h6>
+<p id="section-3.4.2.1.7-1">Browser Fingerprinting is used.
+Such mechanisms usually try to compute a unique identifier from properties of the host Operating System, allowing them to re-identify users without having to persist an identifier.<a href="#section-3.4.2.1.7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="device-type">
+<section id="section-3.4.2.1.8">
+              <h6 id="name-device-type">
+<a href="#section-3.4.2.1.8" class="section-number selfRef">3.4.2.1.8. </a><a href="#name-device-type" class="section-name selfRef">device-type</a>
+              </h6>
+<p id="section-3.4.2.1.8-1">The user's device type (e.g. mobile / tablet / desktop) is being determined and collected.
+The categories and rules for this distinction might be different for different software solutions.<a href="#section-3.4.2.1.8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="referrer">
+<section id="section-3.4.2.1.9">
+              <h6 id="name-referrer">
+<a href="#section-3.4.2.1.9" class="section-number selfRef">3.4.2.1.9. </a><a href="#name-referrer" class="section-name selfRef">referrer</a>
+              </h6>
+<p id="section-3.4.2.1.9-1">The Referrer of a visit is collected and used. This MUST also be specified if the referrer value is stripped of potential path fragments.<a href="#section-3.4.2.1.9-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="visit-duration">
+<section id="section-3.4.2.1.10">
+              <h6 id="name-visit-duration">
+<a href="#section-3.4.2.1.10" class="section-number selfRef">3.4.2.1.10. </a><a href="#name-visit-duration" class="section-name selfRef">visit-duration</a>
+              </h6>
+<p id="section-3.4.2.1.10-1">The duration of a visit, either on page- or on session-level is measured and used.<a href="#section-3.4.2.1.10-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="custom-events">
+<section id="section-3.4.2.1.11">
+              <h6 id="name-custom-events">
+<a href="#section-3.4.2.1.11" class="section-number selfRef">3.4.2.1.11. </a><a href="#name-custom-events" class="section-name selfRef">custom-events</a>
+              </h6>
+<p id="section-3.4.2.1.11-1">Custom events like conversion goals are defined and used.
+This MAY be left out in case the analytics software in use offers such functionality, but implementors chose not to use the feature.<a href="#section-3.4.2.1.11-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="session-recording">
+<section id="section-3.4.2.1.12">
+              <h6 id="name-session-recording">
+<a href="#section-3.4.2.1.12" class="section-number selfRef">3.4.2.1.12. </a><a href="#name-session-recording" class="section-name selfRef">session-recording</a>
+              </h6>
+<p id="section-3.4.2.1.12-1">Detailed behavior like mouse movement and scrolling is recorded and can possibly be played back when analyzing the analytics data.<a href="#section-3.4.2.1.12-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-1">
+<section id="section-3.4.2.2">
+            <h5 id="name-example-2">
+<a href="#section-3.4.2.2" class="section-number selfRef">3.4.2.2. </a><a href="#name-example-2" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.2.2-1">
+<pre>
+Collects: url, device-type, referrer
+</pre><a href="#section-3.4.2.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="stores">
+<section id="section-3.4.3">
+          <h4 id="name-stores">
+<a href="#section-3.4.3" class="section-number selfRef">3.4.3. </a><a href="#name-stores" class="section-name selfRef">Stores</a>
+          </h4>
+<p id="section-3.4.3-1">This field is REQUIRED unless the only value of the Collects field as per <a href="#collects-field" class="xref">Section 3.4.2</a> is none.
+The multi-value field indicates whether data is persisted on the client during the collection of analytics data and declares the browser features used for doing so.
+In case no data is being persisted at all, the value none MUST be used as the single entry for this field.<a href="#section-3.4.3-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-1">
+<section id="section-3.4.3.1">
+            <h5 id="name-allowed-values-2">
+<a href="#section-3.4.3.1" class="section-number selfRef">3.4.3.1. </a><a href="#name-allowed-values-2" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-1">
+<section id="section-3.4.3.1.1">
+              <h6 id="name-none-2">
+<a href="#section-3.4.3.1.1" class="section-number selfRef">3.4.3.1.1. </a><a href="#name-none-2" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.3.1.1-1">No data is persisted on the client during the collection of usage data.
+This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.3.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="first-party-cookies">
+<section id="section-3.4.3.1.2">
+              <h6 id="name-first-party-cookies">
+<a href="#section-3.4.3.1.2" class="section-number selfRef">3.4.3.1.2. </a><a href="#name-first-party-cookies" class="section-name selfRef">first-party-cookies</a>
+              </h6>
+<p id="section-3.4.3.1.2-1">First party cookies are in use.
+There is no differentiation between session or persistent cookies, just like HTTP and JavaScript cookies are considered equal.<a href="#section-3.4.3.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="third-party-cookies">
+<section id="section-3.4.3.1.3">
+              <h6 id="name-third-party-cookies">
+<a href="#section-3.4.3.1.3" class="section-number selfRef">3.4.3.1.3. </a><a href="#name-third-party-cookies" class="section-name selfRef">third-party-cookies</a>
+              </h6>
+<p id="section-3.4.3.1.3-1">Third party cookies are in use.
+There is no differentiation between session or persistent cookies, just like HTTP and JavaScript cookies are considered equal.<a href="#section-3.4.3.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="local-storage">
+<section id="section-3.4.3.1.4">
+              <h6 id="name-local-storage">
+<a href="#section-3.4.3.1.4" class="section-number selfRef">3.4.3.1.4. </a><a href="#name-local-storage" class="section-name selfRef">local-storage</a>
+              </h6>
+<p id="section-3.4.3.1.4-1">Data is persisted on the client using non-cookie JavaScript APIs like <code>localStorage</code>, <code>sessionStorage</code>, <code>WebSQL</code> or <code>IndexedDB</code><a href="#section-3.4.3.1.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cache">
+<section id="section-3.4.3.1.5">
+              <h6 id="name-cache">
+<a href="#section-3.4.3.1.5" class="section-number selfRef">3.4.3.1.5. </a><a href="#name-cache" class="section-name selfRef">cache</a>
+              </h6>
+<p id="section-3.4.3.1.5-1">The analytics software leverages browser cache mechanisms to store identifiers.
+For example, ETag headers can be used to identify users based on their browser caches' contents.
+This value is not required in case the analytics software sends static resources with cache headers, but does not make use of the request headers on subsequent requests for purposes other than managing caching of assets.<a href="#section-3.4.3.1.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-2">
+<section id="section-3.4.3.2">
+            <h5 id="name-example-3">
+<a href="#section-3.4.3.2" class="section-number selfRef">3.4.3.2. </a><a href="#name-example-3" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.3.2-1">
+<pre>
+Stores: first-party-cookies, local-storage
+</pre><a href="#section-3.4.3.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="uses">
+<section id="section-3.4.4">
+          <h4 id="name-uses">
+<a href="#section-3.4.4" class="section-number selfRef">3.4.4. </a><a href="#name-uses" class="section-name selfRef">Uses</a>
+          </h4>
+<p id="section-3.4.4-1">This field is REQUIRED unless the only value of the Collects field <a href="#collects-field" class="xref">Section 3.4.2</a> is none.
+The multi-value field indicates the technical implementation details for how analytics data is being collected.<a href="#section-3.4.4-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-2">
+<section id="section-3.4.4.1">
+            <h5 id="name-allowed-values-3">
+<a href="#section-3.4.4.1" class="section-number selfRef">3.4.4.1. </a><a href="#name-allowed-values-3" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="javascript">
+<section id="section-3.4.4.1.1">
+              <h6 id="name-javascript">
+<a href="#section-3.4.4.1.1" class="section-number selfRef">3.4.4.1.1. </a><a href="#name-javascript" class="section-name selfRef">javascript</a>
+              </h6>
+<p id="section-3.4.4.1.1-1">A client-side script is used to collect data.<a href="#section-3.4.4.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="pixel">
+<section id="section-3.4.4.1.2">
+              <h6 id="name-pixel">
+<a href="#section-3.4.4.1.2" class="section-number selfRef">3.4.4.1.2. </a><a href="#name-pixel" class="section-name selfRef">pixel</a>
+              </h6>
+<p id="section-3.4.4.1.2-1">A static resource - typically a pixel - transferred via HTTP is being used to collect data through the request parameters.<a href="#section-3.4.4.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="server-side">
+<section id="section-3.4.4.1.3">
+              <h6 id="name-server-side">
+<a href="#section-3.4.4.1.3" class="section-number selfRef">3.4.4.1.3. </a><a href="#name-server-side" class="section-name selfRef">server-side</a>
+              </h6>
+<p id="section-3.4.4.1.3-1">Collection of usage data is happening on the server side at the application layer.
+This also includes deriving usage data from server logs.<a href="#section-3.4.4.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="other">
+<section id="section-3.4.4.1.4">
+              <h6 id="name-other">
+<a href="#section-3.4.4.1.4" class="section-number selfRef">3.4.4.1.4. </a><a href="#name-other" class="section-name selfRef">other</a>
+              </h6>
+<p id="section-3.4.4.1.4-1">Other techniques that are not described in this section are in use.<a href="#section-3.4.4.1.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-3">
+<section id="section-3.4.4.2">
+            <h5 id="name-example-4">
+<a href="#section-3.4.4.2" class="section-number selfRef">3.4.4.2. </a><a href="#name-example-4" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.4.2-1">
+<pre>
+Uses: script
+</pre><a href="#section-3.4.4.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="allows">
+<section id="section-3.4.5">
+          <h4 id="name-allows">
+<a href="#section-3.4.5" class="section-number selfRef">3.4.5. </a><a href="#name-allows" class="section-name selfRef">Allows</a>
+          </h4>
+<p id="section-3.4.5-1">This field is REQUIRED unless the only value of the Collects field <a href="#collects-field" class="xref">Section 3.4.2</a> is none.
+The multi-value field discloses information about whether user consent is being acquired before collecting analytics data, and if it is possible for users to opt out of the collection of usage data.<a href="#section-3.4.5-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-3">
+<section id="section-3.4.5.1">
+            <h5 id="name-allowed-values-4">
+<a href="#section-3.4.5.1" class="section-number selfRef">3.4.5.1. </a><a href="#name-allowed-values-4" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-2">
+<section id="section-3.4.5.1.1">
+              <h6 id="name-none-3">
+<a href="#section-3.4.5.1.1" class="section-number selfRef">3.4.5.1.1. </a><a href="#name-none-3" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.5.1.1-1">The software does not define a way for users to opt in or opt out of the collection of usage data.
+This value also applies to scenarios where only a subset of data is collected by default and could be extended by opting in.
+This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.5.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="opt-in">
+<section id="section-3.4.5.1.2">
+              <h6 id="name-opt-in">
+<a href="#section-3.4.5.1.2" class="section-number selfRef">3.4.5.1.2. </a><a href="#name-opt-in" class="section-name selfRef">opt-in</a>
+              </h6>
+<p id="section-3.4.5.1.2-1">No usage data is collected before users have given their consent.<a href="#section-3.4.5.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="opt-out">
+<section id="section-3.4.5.1.3">
+              <h6 id="name-opt-out">
+<a href="#section-3.4.5.1.3" class="section-number selfRef">3.4.5.1.3. </a><a href="#name-opt-out" class="section-name selfRef">opt-out</a>
+              </h6>
+<p id="section-3.4.5.1.3-1">Users can opt out of collection of usage data using a dedicated feature tailored towards the user audience.
+This value is only applicable in case no data at all is collected after having opted out.<a href="#section-3.4.5.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-4">
+<section id="section-3.4.5.2">
+            <h5 id="name-example-5">
+<a href="#section-3.4.5.2" class="section-number selfRef">3.4.5.2. </a><a href="#name-example-5" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.5.2-1">
+<pre>
+Allows: opt-out
+</pre><a href="#section-3.4.5.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="retains">
+<section id="section-3.4.6">
+          <h4 id="name-retains">
+<a href="#section-3.4.6" class="section-number selfRef">3.4.6. </a><a href="#name-retains" class="section-name selfRef">Retains</a>
+          </h4>
+<p id="section-3.4.6-1">This field is REQUIRED unless the only value of the Collects field <a href="#collects-field" class="xref">Section 3.4.2</a> is none.
+The single-value field indicates the duration for which the analytics data is being stored before being deleted. This duration MUST also cover periods where data might transition to be stored in aggregated form only.
+The value is either a duration in days (including the days suffix), or the token "perpetual" in case data is retained without expiring it at some point.
+A day is defined as 24 hours.
+In case the retention period does not divide evenly into days, it MUST be brought up to the next round figure.<a href="#section-3.4.6-1" class="pilcrow">¶</a></p>
+<div id="example-5">
+<section id="section-3.4.6.1">
+            <h5 id="name-example-6">
+<a href="#section-3.4.6.1" class="section-number selfRef">3.4.6.1. </a><a href="#name-example-6" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.6.1-1">
+<pre>
+Retains: 365 days
+</pre><a href="#section-3.4.6.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="honors">
+<section id="section-3.4.7">
+          <h4 id="name-honors">
+<a href="#section-3.4.7" class="section-number selfRef">3.4.7. </a><a href="#name-honors" class="section-name selfRef">Honors</a>
+          </h4>
+<p id="section-3.4.7-1">This OPTIONAL, RECOMMENDED multi-value field indicates which browser level privacy controls are being honored when collecting data.<a href="#section-3.4.7-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-4">
+<section id="section-3.4.7.1">
+            <h5 id="name-allowed-values-5">
+<a href="#section-3.4.7.1" class="section-number selfRef">3.4.7.1. </a><a href="#name-allowed-values-5" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-3">
+<section id="section-3.4.7.1.1">
+              <h6 id="name-none-4">
+<a href="#section-3.4.7.1.1" class="section-number selfRef">3.4.7.1.1. </a><a href="#name-none-4" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.7.1.1-1">Data is collected even if any of the browser settings listed below are in use.
+This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.7.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="do-not-track">
+<section id="section-3.4.7.1.2">
+              <h6 id="name-do-not-track">
+<a href="#section-3.4.7.1.2" class="section-number selfRef">3.4.7.1.2. </a><a href="#name-do-not-track" class="section-name selfRef">do-not-track</a>
+              </h6>
+<p id="section-3.4.7.1.2-1">User-Agents that have DoNotTrack <span>[<a href="#DNT" class="xref">DNT</a>]</span> enabled will be excluded from the collection of analytics data.<a href="#section-3.4.7.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="global-privacy-control">
+<section id="section-3.4.7.1.3">
+              <h6 id="name-global-privacy-control">
+<a href="#section-3.4.7.1.3" class="section-number selfRef">3.4.7.1.3. </a><a href="#name-global-privacy-control" class="section-name selfRef">global-privacy-control</a>
+              </h6>
+<p id="section-3.4.7.1.3-1">User agents that have Global Privacy Control <span>[<a href="#GPC" class="xref">GPC</a>]</span> enabled will be excluded from the collection of analytics data.<a href="#section-3.4.7.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-6">
+<section id="section-3.4.7.2">
+            <h5 id="name-example-7">
+<a href="#section-3.4.7.2" class="section-number selfRef">3.4.7.2. </a><a href="#name-example-7" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.7.2-1">
+<pre>
+Honors: do-not-track, global-privacy-control
+</pre><a href="#section-3.4.7.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="tracks">
+<section id="section-3.4.8">
+          <h4 id="name-tracks">
+<a href="#section-3.4.8" class="section-number selfRef">3.4.8. </a><a href="#name-tracks" class="section-name selfRef">Tracks</a>
+          </h4>
+<p id="section-3.4.8-1">This OPTIONAL, RECOMMENDED multi-value field indicates the coverage in session and user lifecycle tracking.<a href="#section-3.4.8-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-5">
+<section id="section-3.4.8.1">
+            <h5 id="name-allowed-values-6">
+<a href="#section-3.4.8.1" class="section-number selfRef">3.4.8.1. </a><a href="#name-allowed-values-6" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-4">
+<section id="section-3.4.8.1.1">
+              <h6 id="name-none-5">
+<a href="#section-3.4.8.1.1" class="section-number selfRef">3.4.8.1.1. </a><a href="#name-none-5" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.8.1.1-1">Each event that is collected is anonymous.
+There is no way to connect and group multiple pageviews by user or similar.
+This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.8.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sessions">
+<section id="section-3.4.8.1.2">
+              <h6 id="name-sessions">
+<a href="#section-3.4.8.1.2" class="section-number selfRef">3.4.8.1.2. </a><a href="#name-sessions" class="section-name selfRef">sessions</a>
+              </h6>
+<p id="section-3.4.8.1.2-1">Metrics that source from a single browser session can be grouped and distinguished as such.<a href="#section-3.4.8.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="users">
+<section id="section-3.4.8.1.3">
+              <h6 id="name-users">
+<a href="#section-3.4.8.1.3" class="section-number selfRef">3.4.8.1.3. </a><a href="#name-users" class="section-name selfRef">users</a>
+              </h6>
+<p id="section-3.4.8.1.3-1">Users can be identified across multiple browser sessions.<a href="#section-3.4.8.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-7">
+<section id="section-3.4.8.2">
+            <h5 id="name-example-8">
+<a href="#section-3.4.8.2" class="section-number selfRef">3.4.8.2. </a><a href="#name-example-8" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.8.2-1">
+<pre>
+Tracks: sessions, users
+</pre><a href="#section-3.4.8.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="varies">
+<section id="section-3.4.9">
+          <h4 id="name-varies">
+<a href="#section-3.4.9" class="section-number selfRef">3.4.9. </a><a href="#name-varies" class="section-name selfRef">Varies</a>
+          </h4>
+<p id="section-3.4.9-1">This OPTIONAL, RECOMMENDED single-value field indicates the usage of content experiments like A/B testing.
+It MUST contain a single value only.<a href="#section-3.4.9-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-6">
+<section id="section-3.4.9.1">
+            <h5 id="name-allowed-values-7">
+<a href="#section-3.4.9.1" class="section-number selfRef">3.4.9.1. </a><a href="#name-allowed-values-7" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-5">
+<section id="section-3.4.9.1.1">
+              <h6 id="name-none-6">
+<a href="#section-3.4.9.1.1" class="section-number selfRef">3.4.9.1.1. </a><a href="#name-none-6" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.9.1.1-1">All users are served the same content without any changes.
+This value MUST NOT be used in conjunction with other values.<a href="#section-3.4.9.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="random">
+<section id="section-3.4.9.1.2">
+              <h6 id="name-random">
+<a href="#section-3.4.9.1.2" class="section-number selfRef">3.4.9.1.2. </a><a href="#name-random" class="section-name selfRef">random</a>
+              </h6>
+<p id="section-3.4.9.1.2-1">Content experiments are performed by grouping users randomly into buckets and serving them different content.<a href="#section-3.4.9.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="geographic">
+<section id="section-3.4.9.1.3">
+              <h6 id="name-geographic">
+<a href="#section-3.4.9.1.3" class="section-number selfRef">3.4.9.1.3. </a><a href="#name-geographic" class="section-name selfRef">geographic</a>
+              </h6>
+<p id="section-3.4.9.1.3-1">Content experiments are performed by targeting user based on their geographic location.<a href="#section-3.4.9.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="behavioral">
+<section id="section-3.4.9.1.4">
+              <h6 id="name-behavioral">
+<a href="#section-3.4.9.1.4" class="section-number selfRef">3.4.9.1.4. </a><a href="#name-behavioral" class="section-name selfRef">behavioral</a>
+              </h6>
+<p id="section-3.4.9.1.4-1">Content experiments are performed by grouping users into buckets based on their behavior and serving them different content.<a href="#section-3.4.9.1.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-8">
+<section id="section-3.4.9.2">
+            <h5 id="name-example-9">
+<a href="#section-3.4.9.2" class="section-number selfRef">3.4.9.2. </a><a href="#name-example-9" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.9.2-1">
+<pre>
+Varies: random
+</pre><a href="#section-3.4.9.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="shares">
+<section id="section-3.4.10">
+          <h4 id="name-shares">
+<a href="#section-3.4.10" class="section-number selfRef">3.4.10. </a><a href="#name-shares" class="section-name selfRef">Shares</a>
+          </h4>
+<p id="section-3.4.10-1">This OPTIONAL, RECOMMENDED multi-value field indicates whether data is shared with select users, the general public or third parties.<a href="#section-3.4.10-1" class="pilcrow">¶</a></p>
+<div id="allowed-values-7">
+<section id="section-3.4.10.1">
+            <h5 id="name-allowed-values-8">
+<a href="#section-3.4.10.1" class="section-number selfRef">3.4.10.1. </a><a href="#name-allowed-values-8" class="section-name selfRef">Allowed values</a>
+            </h5>
+<div id="none-6">
+<section id="section-3.4.10.1.1">
+              <h6 id="name-none-7">
+<a href="#section-3.4.10.1.1" class="section-number selfRef">3.4.10.1.1. </a><a href="#name-none-7" class="section-name selfRef">none</a>
+              </h6>
+<p id="section-3.4.10.1.1-1">The data collected is not shared with any party unless directly affiliated with the implementor, e.g. employees.<a href="#section-3.4.10.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="per-user">
+<section id="section-3.4.10.1.2">
+              <h6 id="name-per-user">
+<a href="#section-3.4.10.1.2" class="section-number selfRef">3.4.10.1.2. </a><a href="#name-per-user" class="section-name selfRef">per-user</a>
+              </h6>
+<p id="section-3.4.10.1.2-1">Users can access the usage data that is associated with them in a non-aggregated way, isolating all data that is specific to their current means of re-identification.<a href="#section-3.4.10.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="general-public">
+<section id="section-3.4.10.1.3">
+              <h6 id="name-general-public">
+<a href="#section-3.4.10.1.3" class="section-number selfRef">3.4.10.1.3. </a><a href="#name-general-public" class="section-name selfRef">general-public</a>
+              </h6>
+<p id="section-3.4.10.1.3-1">Usage statistics for the site or service are available to the general public.<a href="#section-3.4.10.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="third-party">
+<section id="section-3.4.10.1.4">
+              <h6 id="name-third-party">
+<a href="#section-3.4.10.1.4" class="section-number selfRef">3.4.10.1.4. </a><a href="#name-third-party" class="section-name selfRef">third-party</a>
+              </h6>
+<p id="section-3.4.10.1.4-1">Data is being shared non-publicly with third parties.
+This MUST also be specified when datasets are aggregated or pseudonymized beforehand.<a href="#section-3.4.10.1.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="example-9">
+<section id="section-3.4.10.2">
+            <h5 id="name-example-10">
+<a href="#section-3.4.10.2" class="section-number selfRef">3.4.10.2. </a><a href="#name-example-10" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.10.2-1">
+<pre>
+Shares: general-public
+</pre><a href="#section-3.4.10.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="implements">
+<section id="section-3.4.11">
+          <h4 id="name-implements">
+<a href="#section-3.4.11" class="section-number selfRef">3.4.11. </a><a href="#name-implements" class="section-name selfRef">Implements</a>
+          </h4>
+<p id="section-3.4.11-1">This OPTIONAL field indicates conformance with existing regulations and legislation. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).<a href="#section-3.4.11-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.11-2">Example values are:<a href="#section-3.4.11-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4.11-3.1">gdpr<a href="#section-3.4.11-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.4.11-3.2">ccpa<a href="#section-3.4.11-3.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="example-10">
+<section id="section-3.4.11.1">
+            <h5 id="name-example-11">
+<a href="#section-3.4.11.1" class="section-number selfRef">3.4.11.1. </a><a href="#name-example-11" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.11.1-1">
+<pre>
+Implements: gdpr, ccpa
+</pre><a href="#section-3.4.11.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="deploys">
+<section id="section-3.4.12">
+          <h4 id="name-deploys">
+<a href="#section-3.4.12" class="section-number selfRef">3.4.12. </a><a href="#name-deploys" class="section-name selfRef">Deploys</a>
+          </h4>
+<p id="section-3.4.12-1">This OPTIONAL field indicates which software is being used for collecting analytics. Values for this field SHOULD use all lowercase tokens with whitespace being replaced by the dash character (%x2d).<a href="#section-3.4.12-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.12-2">Example values are:<a href="#section-3.4.12-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4.12-3.1">google-analytics<a href="#section-3.4.12-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.4.12-3.2">plausible<a href="#section-3.4.12-3.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.4.12-3.3">hotjar<a href="#section-3.4.12-3.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.4.12-3.4">matomo<a href="#section-3.4.12-3.4" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="example-11">
+<section id="section-3.4.12.1">
+            <h5 id="name-example-12">
+<a href="#section-3.4.12.1" class="section-number selfRef">3.4.12.1. </a><a href="#name-example-12" class="section-name selfRef">Example</a>
+            </h5>
+<div class="alignLeft art-text artwork" id="section-3.4.12.1-1">
+<pre>
+Deploys: google-analytics, hotjar
+</pre><a href="#section-3.4.12.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="examples-of-analyticstxt-files">
+<section id="section-3.5">
+        <h3 id="name-examples-of-analyticstxt-fi">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-examples-of-analyticstxt-fi" class="section-name selfRef">Examples of analytics.txt files</a>
+        </h3>
+<div id="a-site-using-analytics">
+<section id="section-3.5.1">
+          <h4 id="name-a-site-using-analytics">
+<a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-a-site-using-analytics" class="section-name selfRef">A site using analytics</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-3.5.1-1">
+<pre>
+# analytics.txt file for www.example.com
+Author: Jane Doe &lt;doe@example.com&gt;
+
+Collects: url, referrer, device-type
+Stores: first-party-cookies, local-storage
+# Usage data is encrypted end-to-end
+Uses: javascript
+# Users can also delete their usage data only without opting out
+Allows: opt-in, opt-out
+Retains: 186 days
+
+# Optional fields
+Honors: none
+Tracks: sessions, users
+Varies: none
+Shares: per-user
+Implements: gdpr
+</pre><a href="#section-3.5.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="specifying-required-fields-only">
+<section id="section-3.5.2">
+          <h4 id="name-specifying-required-fields-">
+<a href="#section-3.5.2" class="section-number selfRef">3.5.2. </a><a href="#name-specifying-required-fields-" class="section-name selfRef">Specifying required fields only</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-3.5.2-1">
+<pre>
+Author: John Doe &lt;doe@example.com&gt;
+Collects: url, ip-address, geo-location, user-agent, referrer, device-type, custom-events
+Stores: none
+Uses: javascript
+Allows: none
+Retains: perpetual
+</pre><a href="#section-3.5.2-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="a-site-not-using-any-analytics">
+<section id="section-3.5.3">
+          <h4 id="name-a-site-not-using-any-analyt">
+<a href="#section-3.5.3" class="section-number selfRef">3.5.3. </a><a href="#name-a-site-not-using-any-analyt" class="section-name selfRef">A site not using any analytics</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-3.5.3-1">
+<pre>
+# analytics.txt file for www.example.com
+Author: Jane Doe &lt;doe@example.com&gt;
+Collects: none
+</pre><a href="#section-3.5.3-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="location">
+<section id="section-4">
+      <h2 id="name-location-of-the-analyticstx">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-location-of-the-analyticstx" class="section-name selfRef">Location of the analytics.txt file</a>
+      </h2>
+<p id="section-4-1">By default, an analytics.txt file SHOULD be placed in the ".well-known" location as per <span>[<a href="#RFC8615" class="xref">RFC8615</a>]</span> of a domain name or IP address.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="alternatives">
+<section id="section-4.1">
+        <h3 id="name-alternatives">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-alternatives" class="section-name selfRef">Alternatives</a>
+        </h3>
+<p id="section-4.1-1">In case implementors are unable to meet this requirement, other options are available.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<div id="link-tag">
+<section id="section-4.1.1">
+          <h4 id="name-link-tag">
+<a href="#section-4.1.1" class="section-number selfRef">4.1.1. </a><a href="#name-link-tag" class="section-name selfRef">link Tag</a>
+          </h4>
+<p id="section-4.1.1-1">Implementors MAY signal the location of an analytics.txt file in the context of a HTML document using a link element of rel "analytics"<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.1-2">Example:<a href="#section-4.1.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.1.1-3">
+<pre>
+&lt;link rel="analytics" href="https://example.com/resources/analytics.txt"&gt;
+</pre><a href="#section-4.1.1-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="http-header">
+<section id="section-4.1.2">
+          <h4 id="name-http-header">
+<a href="#section-4.1.2" class="section-number selfRef">4.1.2. </a><a href="#name-http-header" class="section-name selfRef">HTTP Header</a>
+          </h4>
+<p id="section-4.1.2-1">Implementors MAY send an HTTP header of <code>X-Analytics-Txt</code> with a response, sending the URI of the applicable file.<a href="#section-4.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.2-2">Example:<a href="#section-4.1.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.1.2-3">
+<pre>
+X-Analytics-Txt: https://example.com/resources/analytics.txt
+</pre><a href="#section-4.1.2-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="precedence">
+<section id="section-4.2">
+        <h3 id="name-precedence">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-precedence" class="section-name selfRef">Precedence</a>
+        </h3>
+<p id="section-4.2-1">In case multiple of these signals are being used, the precedence taken is:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4.2-2">
+<li id="section-4.2-2.1">X-Analytics-Txt Header<a href="#section-4.2-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-4.2-2.2">link element<a href="#section-4.2-2.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-4.2-2.3">".well-known" location<a href="#section-4.2-2.3" class="pilcrow">¶</a>
+</li>
+        </ol>
+</section>
+</div>
+<div id="scope-of-a-file">
+<section id="section-4.3">
+        <h3 id="name-scope-of-a-file">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-scope-of-a-file" class="section-name selfRef">Scope of a file</a>
+        </h3>
+<p id="section-4.3-1">An analytics.txt file located in the ".well-known" location MUST only apply to the domain or IP address of the URI used to retrieve it, and SHALL NOT apply to any of its subdomains or parent domains.
+If the location is signaled using the HTTP Header or in the document markup itself, its scope SHALL be limited to the requested resource only.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">If distributed in non-standard locations, an analytics.txt file MAY also apply to products and services provided by the organization publishing the file (e.g. desktop or mobile applications) and which cannot be mapped to a domain name or IP address.
+In such cases, implementors MUST add sufficient commentary describing the applicable scope.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-5">
+      <h2 id="name-security-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<div id="incorrect-information">
+<section id="section-5.1">
+        <h3 id="name-incorrect-or-stale-informat">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-incorrect-or-stale-informat" class="section-name selfRef">Incorrect or stale information</a>
+        </h3>
+<p id="section-5.1-1">If information given in an "analytics.txt" file is incorrect or not kept up to date, this can result in usage of services under wrong assumptions, thus exposing users to possibly unwanted data collection and handling.
+Not having an "analytics.txt" file may be preferable to having incorrect or stale information in this file.
+This guideline also applies to field level: in case of ambiguities or uncertainties, it's recommended to omit a field or a value rather than providing incorrect information.
+Implementors MUST use the "Author" field (see <a href="#author-field" class="xref">Section 3.4.1</a>) to allow inquiries about the correctness of the given information.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="spam">
+<section id="section-5.2">
+        <h3 id="name-spam">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-spam" class="section-name selfRef">Spam</a>
+        </h3>
+<p id="section-5.2-1">Implementors should be aware that disclosing mandatory author information as per <a href="#author-field" class="xref">Section 3.4.1</a> in such a file exposes them to possible Spam schemes or spurious requests.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="multi-user-environments">
+<section id="section-5.3">
+        <h3 id="name-multi-user-environments">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-multi-user-environments" class="section-name selfRef">Multi-user environments</a>
+        </h3>
+<p id="section-5.3-1">In multi-user / multi-tenant environments, it may possible for a single user to take over the location of the "/.well-known/analytics.txt" file which would also apply to others.
+Organizations should ensure the ".well-known" location is properly protected. Implementors can instead use other locations as per <a href="#location" class="xref">Section 4</a> in such scenarios.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-6">
+      <h2 id="name-iana-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<div id="well-known-uris-registry">
+<section id="section-6.1">
+        <h3 id="name-well-known-uris-registry">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-well-known-uris-registry" class="section-name selfRef">Well-Known URIs registry</a>
+        </h3>
+<p id="section-6.1-1">The "Well-Known URIs" registry should be updated with the following additional values (using the template from <span>[<a href="#RFC8615" class="xref">RFC8615</a>]</span>):<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">URI suffix: analytics.txt<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">Specification document(s): this document<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">Status: permanent<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<section id="section-7.1">
+        <h3 id="name-normative-references">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5322">[RFC5322]</dt>
+        <dd>
+<span class="refAuthor">Resnick, P., Ed.</span>, <span class="refTitle">"Internet Message Format"</span>, <span class="seriesInfo">RFC 5322</span>, <span class="seriesInfo">DOI 10.17487/RFC5322</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc5322">https://datatracker.ietf.org/doc/html/rfc5322</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8174">https://datatracker.ietf.org/doc/html/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8615">[RFC8615]</dt>
+      <dd>
+<span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 8615</span>, <span class="seriesInfo">DOI 10.17487/RFC8615</span>, <time datetime="2019-05" class="refDate">May 2019</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8615">https://datatracker.ietf.org/doc/html/rfc8615</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-7.2">
+        <h3 id="name-informative-references">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="DNT">[DNT]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R.T.</span> and <span class="refAuthor">D. Singer</span>, <span class="refTitle">"Tracking Preference Expression (DNT)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.w3.org/TR/tracking-dnt/">https://www.w3.org/TR/tracking-dnt/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="GPC">[GPC]</dt>
+        <dd>
+<span class="refAuthor">Berjon, R.</span>, <span class="refAuthor">Zimmeck, S.</span>, <span class="refAuthor">Soltani, A.</span>, <span class="refAuthor">Harbage, D.</span>, and <span class="refAuthor">P. Snyder</span>, <span class="refTitle">"Global Privacy Control (GPC)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://globalprivacycontrol.github.io/gpc-spec/">https://globalprivacycontrol.github.io/gpc-spec/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5234">[RFC5234]</dt>
+      <dd>
+<span class="refAuthor">Crocker, D., Ed.</span> and <span class="refAuthor">P. Overell</span>, <span class="refTitle">"Augmented BNF for Syntax Specifications: ABNF"</span>, <span class="seriesInfo">STD 68</span>, <span class="seriesInfo">RFC 5234</span>, <span class="seriesInfo">DOI 10.17487/RFC5234</span>, <time datetime="2008-01" class="refDate">January 2008</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc5234">https://datatracker.ietf.org/doc/html/rfc5234</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</section>
+<div id="acknowledgments">
+<section id="appendix-A">
+      <h2 id="name-acknowledgments">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-A-1">The authors would like to acknowledge the feedback and input provided during the creation of this document as given by Michiel Leenaars, Cyrill Kraehenbuehl, Lasse Voss.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-B">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Frederik Ring</span></div>
+<div dir="auto" class="left"><span class="org">Offen</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:frederik.ring@gmail.com" class="email">frederik.ring@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Hendrik Niefeld</span></div>
+<div dir="auto" class="left"><span class="org">Offen</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:hello@niefeld.com" class="email">hello@niefeld.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
