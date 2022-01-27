@@ -13,12 +13,12 @@ This document proposes a way for websites and services to declare and disclose t
 analytics.txt aims to be an elaborate file format that describes the privacy related characteristics of analytics and tracking software in a non-biased way.
 An analytics.txt file is understandable for a non-technical audience, while also useful for the automated consumption by tools and software. 
     " name="description">
-<meta content="xml2rfc 3.9.1" name="generator">
+<meta content="xml2rfc 3.12.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ring-analyticstxt-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.9.1
-    Python 3.9.5
+  xml2rfc 3.12.0
+    Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
     google-i18n-address 2.5.0
@@ -26,13 +26,13 @@ An analytics.txt file is understandable for a non-technical audience, while also
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.3
+    lxml 4.6.5
     pycountry 20.7.3
-    pyflakes 2.3.0
+    pyflakes 2.3.1
     PyYAML 5.4.1
-    requests 2.25.1
+    requests 2.26.0
     setuptools 52.0.0
-    six 1.15.0
+    six 1.16.0
 -->
 <link href="draft-ring-analyticstxt.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -841,11 +841,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">analytics.txt</td>
-<td class="right">August 2021</td>
+<td class="right">January 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ring &amp; Niefeld</td>
-<td class="center">Expires 19 February 2022</td>
+<td class="center">Expires 31 July 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -858,12 +858,12 @@ address div.right {
 <dd class="internet-draft">draft-ring-analyticstxt-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-08-18" class="published">18 August 2021</time>
+<time datetime="2022-01-27" class="published">27 January 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-02-19">19 February 2022</time></dd>
+<dd class="expires"><time datetime="2022-07-31">31 July 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -912,7 +912,7 @@ An analytics.txt file is understandable for a non-technical audience, while also
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 February 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 July 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -921,7 +921,7 @@ An analytics.txt file is understandable for a non-technical audience, while also
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2022 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -930,9 +930,9 @@ An analytics.txt file is understandable for a non-technical audience, while also
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
             respect to this document. Code Components extracted from this
-            document must include Simplified BSD License text as described in
+            document must include Revised BSD License text as described in
             Section 4.e of the Trust Legal Provisions and are provided without
-            warranty as described in the Simplified BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -940,168 +940,168 @@ An analytics.txt file is understandable for a non-technical audience, while also
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="compact ulBare ulEmpty toc">
-<li class="compact ulBare ulEmpty toc" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-motivation" class="xref">Motivation</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-scope-of-this-proposal" class="xref">Scope of this proposal</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.2.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.1">
                     <p id="section-toc.1-1.1.2.2.2.1.1" class="keepWithNext"><a href="#section-1.2.1" class="xref">1.2.1</a>.  <a href="#name-about-providing-a-human-rea" class="xref">About providing a human readable format</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.3">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-definition-of-the-term-anal" class="xref">Definition of the term "analytics" in the scope of this document</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.4">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
                 <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-verifying-the-provided-info" class="xref">Verifying the provided information</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.4.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4.2.1">
                     <p id="section-toc.1-1.1.2.4.2.1.1"><a href="#section-1.4.1" class="xref">1.4.1</a>.  <a href="#name-non-biased" class="xref">Non-biased</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.1.2.4.2.2">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4.2.2">
                     <p id="section-toc.1-1.1.2.4.2.2.1"><a href="#section-1.4.2" class="xref">1.4.2</a>.  <a href="#name-non-canonical" class="xref">Non-canonical</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.2">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-conventions-and-definitions" class="xref">Conventions and Definitions</a></p>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.3">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-specification" class="xref">Specification</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-comments" class="xref">Comments</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-line-separators" class="xref">Line Separators</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.3">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-extensibility" class="xref">Extensibility</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-field-definitions" class="xref">Field Definitions</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
                     <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="xref">3.4.1</a>.  <a href="#name-author" class="xref">Author</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.2">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
                     <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="xref">3.4.2</a>.  <a href="#name-collects" class="xref">Collects</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.3">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.3">
                     <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="xref">3.4.3</a>.  <a href="#name-stores" class="xref">Stores</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.4">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.4">
                     <p id="section-toc.1-1.3.2.4.2.4.1"><a href="#section-3.4.4" class="xref">3.4.4</a>.  <a href="#name-uses" class="xref">Uses</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.5">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.5">
                     <p id="section-toc.1-1.3.2.4.2.5.1"><a href="#section-3.4.5" class="xref">3.4.5</a>.  <a href="#name-allows" class="xref">Allows</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.6">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.6">
                     <p id="section-toc.1-1.3.2.4.2.6.1"><a href="#section-3.4.6" class="xref">3.4.6</a>.  <a href="#name-retains" class="xref">Retains</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.7">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.7">
                     <p id="section-toc.1-1.3.2.4.2.7.1"><a href="#section-3.4.7" class="xref">3.4.7</a>.  <a href="#name-honors" class="xref">Honors</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.8">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.8">
                     <p id="section-toc.1-1.3.2.4.2.8.1"><a href="#section-3.4.8" class="xref">3.4.8</a>.  <a href="#name-tracks" class="xref">Tracks</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.9">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.9">
                     <p id="section-toc.1-1.3.2.4.2.9.1"><a href="#section-3.4.9" class="xref">3.4.9</a>.  <a href="#name-varies" class="xref">Varies</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.10">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.10">
                     <p id="section-toc.1-1.3.2.4.2.10.1"><a href="#section-3.4.10" class="xref">3.4.10</a>. <a href="#name-shares" class="xref">Shares</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.11">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.11">
                     <p id="section-toc.1-1.3.2.4.2.11.1"><a href="#section-3.4.11" class="xref">3.4.11</a>. <a href="#name-implements" class="xref">Implements</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.12">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.12">
                     <p id="section-toc.1-1.3.2.4.2.12.1"><a href="#section-3.4.12" class="xref">3.4.12</a>. <a href="#name-deploys" class="xref">Deploys</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.5">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-examples-of-analyticstxt-fi" class="xref">Examples of analytics.txt files</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.5.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
                     <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="xref">3.5.1</a>.  <a href="#name-a-site-using-analytics" class="xref">A site using analytics</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.5.2.2">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
                     <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="xref">3.5.2</a>.  <a href="#name-specifying-required-fields-" class="xref">Specifying required fields only</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.3.2.5.2.3">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.3">
                     <p id="section-toc.1-1.3.2.5.2.3.1"><a href="#section-3.5.3" class="xref">3.5.3</a>.  <a href="#name-a-site-not-using-any-analyt" class="xref">A site not using any analytics</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.4">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-location-of-the-analyticstx" class="xref">Location of the analytics.txt file</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.4.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-alternatives" class="xref">Alternatives</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.4.2.1.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.1">
                     <p id="section-toc.1-1.4.2.1.2.1.1"><a href="#section-4.1.1" class="xref">4.1.1</a>.  <a href="#name-link-tag" class="xref">link Tag</a></p>
 </li>
-                  <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.4.2.1.2.2">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.2">
                     <p id="section-toc.1-1.4.2.1.2.2.1"><a href="#section-4.1.2" class="xref">4.1.2</a>.  <a href="#name-http-header" class="xref">HTTP Header</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.4.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-precedence" class="xref">Precedence</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.4.2.3">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-scope-of-a-file" class="xref">Scope of a file</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.5">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.5.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-incorrect-or-stale-informat" class="xref">Incorrect or stale information</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.5.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-spam" class="xref">Spam</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.5.2.3">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-multi-user-environments" class="xref">Multi-user environments</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.6">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.6.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-well-known-uris-registry" class="xref">Well-Known URIs registry</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.7">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-references" class="xref">References</a></p>
-<ul class="ulBare toc compact ulEmpty">
-<li class="ulBare toc compact ulEmpty" id="section-toc.1-1.7.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
 </li>
-              <li class="ulBare toc compact ulEmpty" id="section-toc.1-1.7.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.8">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="xref">Appendix A</a>.  <a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
 </li>
-          <li class="compact ulBare ulEmpty toc" id="section-toc.1-1.9">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
 </li>
         </ul>
@@ -1217,7 +1217,7 @@ A field MAY NOT appear multiple times.<a href="#section-3-4" class="pilcrow">¶<
 <p id="section-3.1-1">Any line beginning with the "#" (%x23) symbol MUST be interpreted as a comment.
 The content of the comment may contain any ASCII or Unicode characters in the %x21-7E and %x80-FFFFF ranges plus the tab (%x09) and space (%x20) characters.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">Example:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft" id="section-3.1-3">
+<div class="alignLeft art-text artwork" id="section-3.1-3">
 <pre>
 # This is a comment
 </pre><a href="#section-3.1-3" class="pilcrow">¶</a>
@@ -1262,7 +1262,7 @@ The field MUST contain a valid email address which shall be used for inquiries a
             <h5 id="name-example">
 <a href="#section-3.4.1.1" class="section-number selfRef">3.4.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.1.1-1">
+<div class="alignLeft art-text artwork" id="section-3.4.1.1-1">
 <pre>
 Author: Jane Doe &lt;jane.doe@example.com&gt;
 </pre><a href="#section-3.4.1.1-1" class="pilcrow">¶</a>
@@ -1392,7 +1392,7 @@ This MAY be left out in case the analytics software in use offers such functiona
             <h5 id="name-example-2">
 <a href="#section-3.4.2.2" class="section-number selfRef">3.4.2.2. </a><a href="#name-example-2" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.2.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.2.2-1">
 <pre>
 Collects: url, device-type, referrer
 </pre><a href="#section-3.4.2.2-1" class="pilcrow">¶</a>
@@ -1466,7 +1466,7 @@ This value is not required in case the analytics software sends static resources
             <h5 id="name-example-3">
 <a href="#section-3.4.3.2" class="section-number selfRef">3.4.3.2. </a><a href="#name-example-3" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.3.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.3.2-1">
 <pre>
 Stores: first-party-cookies, local-storage
 </pre><a href="#section-3.4.3.2-1" class="pilcrow">¶</a>
@@ -1508,23 +1508,16 @@ The multi-value field indicates the technical implementation details for how ana
               <h6 id="name-server-side">
 <a href="#section-3.4.4.1.3" class="section-number selfRef">3.4.4.1.3. </a><a href="#name-server-side" class="section-name selfRef">server-side</a>
               </h6>
-<p id="section-3.4.4.1.3-1">Collection of usage data is happening on the server side at the application layer.<a href="#section-3.4.4.1.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="logs">
-<section id="section-3.4.4.1.4">
-              <h6 id="name-logs">
-<a href="#section-3.4.4.1.4" class="section-number selfRef">3.4.4.1.4. </a><a href="#name-logs" class="section-name selfRef">logs</a>
-              </h6>
-<p id="section-3.4.4.1.4-1">Usage data is being calculated from server log files.<a href="#section-3.4.4.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.4.1.3-1">Collection of usage data is happening on the server side at the application layer.
+This also includes deriving usage data from server logs.<a href="#section-3.4.4.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="other">
-<section id="section-3.4.4.1.5">
+<section id="section-3.4.4.1.4">
               <h6 id="name-other">
-<a href="#section-3.4.4.1.5" class="section-number selfRef">3.4.4.1.5. </a><a href="#name-other" class="section-name selfRef">other</a>
+<a href="#section-3.4.4.1.4" class="section-number selfRef">3.4.4.1.4. </a><a href="#name-other" class="section-name selfRef">other</a>
               </h6>
-<p id="section-3.4.4.1.5-1">Other techniques that are not described in this section are in use.<a href="#section-3.4.4.1.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.4.1.4-1">Other techniques that are not described in this section are in use.<a href="#section-3.4.4.1.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1534,7 +1527,7 @@ The multi-value field indicates the technical implementation details for how ana
             <h5 id="name-example-4">
 <a href="#section-3.4.4.2" class="section-number selfRef">3.4.4.2. </a><a href="#name-example-4" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.4.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.4.2-1">
 <pre>
 Uses: script
 </pre><a href="#section-3.4.4.2-1" class="pilcrow">¶</a>
@@ -1589,7 +1582,7 @@ This value is only applicable in case no data at all is collected after having o
             <h5 id="name-example-5">
 <a href="#section-3.4.5.2" class="section-number selfRef">3.4.5.2. </a><a href="#name-example-5" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.5.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.5.2-1">
 <pre>
 Allows: opt-out
 </pre><a href="#section-3.4.5.2-1" class="pilcrow">¶</a>
@@ -1613,7 +1606,7 @@ In case the retention period does not divide evenly into days, it MUST be brough
             <h5 id="name-example-6">
 <a href="#section-3.4.6.1" class="section-number selfRef">3.4.6.1. </a><a href="#name-example-6" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.6.1-1">
+<div class="alignLeft art-text artwork" id="section-3.4.6.1-1">
 <pre>
 Retains: 365 days
 </pre><a href="#section-3.4.6.1-1" class="pilcrow">¶</a>
@@ -1665,7 +1658,7 @@ This value MUST NOT be used in conjunction with other values.<a href="#section-3
             <h5 id="name-example-7">
 <a href="#section-3.4.7.2" class="section-number selfRef">3.4.7.2. </a><a href="#name-example-7" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.7.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.7.2-1">
 <pre>
 Honors: do-not-track, global-privacy-control
 </pre><a href="#section-3.4.7.2-1" class="pilcrow">¶</a>
@@ -1718,7 +1711,7 @@ This value MUST NOT be used in conjunction with other values.<a href="#section-3
             <h5 id="name-example-8">
 <a href="#section-3.4.8.2" class="section-number selfRef">3.4.8.2. </a><a href="#name-example-8" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.8.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.8.2-1">
 <pre>
 Tracks: sessions, users
 </pre><a href="#section-3.4.8.2-1" class="pilcrow">¶</a>
@@ -1779,7 +1772,7 @@ This value MUST NOT be used in conjunction with other values.<a href="#section-3
             <h5 id="name-example-9">
 <a href="#section-3.4.9.2" class="section-number selfRef">3.4.9.2. </a><a href="#name-example-9" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.9.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.9.2-1">
 <pre>
 Varies: random
 </pre><a href="#section-3.4.9.2-1" class="pilcrow">¶</a>
@@ -1839,7 +1832,7 @@ This MUST also be specified when datasets are aggregated or pseudonymized before
             <h5 id="name-example-10">
 <a href="#section-3.4.10.2" class="section-number selfRef">3.4.10.2. </a><a href="#name-example-10" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.10.2-1">
+<div class="alignLeft art-text artwork" id="section-3.4.10.2-1">
 <pre>
 Shares: general-public
 </pre><a href="#section-3.4.10.2-1" class="pilcrow">¶</a>
@@ -1866,7 +1859,7 @@ Shares: general-public
             <h5 id="name-example-11">
 <a href="#section-3.4.11.1" class="section-number selfRef">3.4.11.1. </a><a href="#name-example-11" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.11.1-1">
+<div class="alignLeft art-text artwork" id="section-3.4.11.1-1">
 <pre>
 Implements: gdpr, ccpa
 </pre><a href="#section-3.4.11.1-1" class="pilcrow">¶</a>
@@ -1897,7 +1890,7 @@ Implements: gdpr, ccpa
             <h5 id="name-example-12">
 <a href="#section-3.4.12.1" class="section-number selfRef">3.4.12.1. </a><a href="#name-example-12" class="section-name selfRef">Example</a>
             </h5>
-<div class="artwork art-text alignLeft" id="section-3.4.12.1-1">
+<div class="alignLeft art-text artwork" id="section-3.4.12.1-1">
 <pre>
 Deploys: google-analytics, hotjar
 </pre><a href="#section-3.4.12.1-1" class="pilcrow">¶</a>
@@ -1918,7 +1911,7 @@ Deploys: google-analytics, hotjar
           <h4 id="name-a-site-using-analytics">
 <a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-a-site-using-analytics" class="section-name selfRef">A site using analytics</a>
           </h4>
-<div class="artwork art-text alignLeft" id="section-3.5.1-1">
+<div class="alignLeft art-text artwork" id="section-3.5.1-1">
 <pre>
 # analytics.txt file for www.example.com
 Author: Jane Doe &lt;doe@example.com&gt;
@@ -1946,7 +1939,7 @@ Implements: gdpr
           <h4 id="name-specifying-required-fields-">
 <a href="#section-3.5.2" class="section-number selfRef">3.5.2. </a><a href="#name-specifying-required-fields-" class="section-name selfRef">Specifying required fields only</a>
           </h4>
-<div class="artwork art-text alignLeft" id="section-3.5.2-1">
+<div class="alignLeft art-text artwork" id="section-3.5.2-1">
 <pre>
 Author: John Doe &lt;doe@example.com&gt;
 Collects: url, ip-address, geo-location, user-agent, referrer, device-type, custom-events
@@ -1963,7 +1956,7 @@ Retains: perpetual
           <h4 id="name-a-site-not-using-any-analyt">
 <a href="#section-3.5.3" class="section-number selfRef">3.5.3. </a><a href="#name-a-site-not-using-any-analyt" class="section-name selfRef">A site not using any analytics</a>
           </h4>
-<div class="artwork art-text alignLeft" id="section-3.5.3-1">
+<div class="alignLeft art-text artwork" id="section-3.5.3-1">
 <pre>
 # analytics.txt file for www.example.com
 Author: Jane Doe &lt;doe@example.com&gt;
@@ -1995,7 +1988,7 @@ Collects: none
           </h4>
 <p id="section-4.1.1-1">Implementors MAY signal the location of an analytics.txt file in the context of a HTML document using a link element of rel "analytics"<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.1-2">Example:<a href="#section-4.1.1-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft" id="section-4.1.1-3">
+<div class="alignLeft art-text artwork" id="section-4.1.1-3">
 <pre>
 &lt;link rel="analytics" href="https://example.com/resources/analytics.txt"&gt;
 </pre><a href="#section-4.1.1-3" class="pilcrow">¶</a>
@@ -2009,7 +2002,7 @@ Collects: none
           </h4>
 <p id="section-4.1.2-1">Implementors MAY send an HTTP header of <code>X-Analytics-Txt</code> with a response, sending the URI of the applicable file.<a href="#section-4.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.2-2">Example:<a href="#section-4.1.2-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft" id="section-4.1.2-3">
+<div class="alignLeft art-text artwork" id="section-4.1.2-3">
 <pre>
 X-Analytics-Txt: https://example.com/resources/analytics.txt
 </pre><a href="#section-4.1.2-3" class="pilcrow">¶</a>
