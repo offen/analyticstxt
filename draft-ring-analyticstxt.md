@@ -290,10 +290,7 @@ A static resource - typically a pixel - transferred via HTTP is being used to co
 ##### server-side
 
 Collection of usage data is happening on the server side at the application layer.
-
-##### logs
-
-Usage data is being calculated from server log files.
+This also includes deriving usage data from server logs.
 
 ##### other
 
